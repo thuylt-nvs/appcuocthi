@@ -197,6 +197,30 @@ class LessonRunner {
     }
   }
 
+  moveSequenceUp(idx, evt) {
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+    if (window.soundEngine) window.soundEngine.playTap();
+    if (idx > 0 && Array.isArray(this.sequenceState)) {
+      const temp = this.sequenceState[idx];
+      this.sequenceState[idx] = this.sequenceState[idx - 1];
+      this.sequenceState[idx - 1] = temp;
+      this.selectedSeqIdx = null;
+      this.renderCurrentStage();
+    }
+  }
+
+  moveSequenceDown(idx, evt) {
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+    if (window.soundEngine) window.soundEngine.playTap();
+    if (Array.isArray(this.sequenceState) && idx < this.sequenceState.length - 1) {
+      const temp = this.sequenceState[idx];
+      this.sequenceState[idx] = this.sequenceState[idx + 1];
+      this.sequenceState[idx + 1] = temp;
+      this.selectedSeqIdx = null;
+      this.renderCurrentStage();
+    }
+  }
+
   handleSequenceTap(idx, evt) {
     if (window.soundEngine) window.soundEngine.playTap();
     if (this.selectedSeqIdx === null) {

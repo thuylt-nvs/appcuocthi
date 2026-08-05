@@ -128,14 +128,14 @@ const NSCards = {
     `;
   },
 
-  // 5. Child-Friendly Tap-to-Swap Sequence Builder Component
+  // 5. Child-Friendly Tap-to-Swap & Arrow Navigation Sequence Builder Component
   renderSequenceBuilder({ instruction = '', steps = [], selectedSeqIdx = null } = {}) {
     const safeSteps = Array.isArray(steps) ? steps : [];
     return `
       <div class="ns-card">
         <p style="font-weight: 800; font-size: 1.1rem; margin-bottom: 12px; color: var(--primary-blue-dark);">${instruction}</p>
         <div style="background: #EFF6FF; padding: 10px 14px; border-radius: var(--radius-sm); border: 2px solid #93C5FD; margin-bottom: 16px; font-weight: 700; font-size: 0.85rem; color: #1E40AF;">
-          💡 Chạm vào 2 bước để <b>Đổi Vị Trí</b> cho đúng thứ tự chuẩn nhé!
+          💡 Chạm vào nút <b>▲ / ▼</b> hoặc chạm vào 2 bước để <b>Đổi Vị Trí</b> nhé!
         </div>
 
         <div class="ns-sequence-list" id="sequence-builder-list">
@@ -143,11 +143,25 @@ const NSCards = {
             <div class="ns-sequence-item ${selectedSeqIdx === idx ? 'seq-selected' : ''}" 
                  id="seq-item-${idx}" 
                  onclick="window.lessonRunner.handleSequenceTap(${idx}, event)">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span class="ns-hud-badge" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">${idx + 1}</span>
-                <span>${step.text}</span>
+              <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                <span class="ns-hud-badge" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0;">${idx + 1}</span>
+                <span style="flex: 1;">${step.text}</span>
               </div>
-              <span style="font-size: 1.2rem; color: var(--primary-blue); font-weight: 800;">${selectedSeqIdx === idx ? '✨ Chọn' : '🔄'}</span>
+
+              <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;" onclick="event.stopPropagation()">
+                ${idx > 0 ? `
+                  <button class="ns-btn ns-btn-secondary ns-squash-press" 
+                          style="padding: 6px 12px; min-height: 40px; font-size: 1rem; border-radius: var(--radius-sm); border: 2px solid var(--primary-blue-light);" 
+                          onclick="window.lessonRunner.moveSequenceUp(${idx}, event)"
+                          title="Di chuyển lên">▲</button>
+                ` : ''}
+                ${idx < safeSteps.length - 1 ? `
+                  <button class="ns-btn ns-btn-secondary ns-squash-press" 
+                          style="padding: 6px 12px; min-height: 40px; font-size: 1rem; border-radius: var(--radius-sm); border: 2px solid var(--primary-blue-light);" 
+                          onclick="window.lessonRunner.moveSequenceDown(${idx}, event)"
+                          title="Di chuyển xuống">▼</button>
+                ` : ''}
+              </div>
             </div>
           `).join('')}
         </div>
