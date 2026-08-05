@@ -1,0 +1,75 @@
+
+
+Content model
+Competency
+
+↓
+
+Learning Experience
+
+↓
+
+Story
+
+↓
+
+Mini Game
+
+↓
+
+Boss
+
+↓
+
+Reflection
+
+↓
+
+Challenge
+
+↓
+
+Reward
+
+Lesson Architecture:
+Pre-test
+
+↓
+
+Story
+
+↓
+
+Mini Games
+
+↓
+
+Boss
+
+↓
+
+Reflection
+
+↓
+
+Real-life Challenge
+
+↓
+
+Post-test
+
+↓
+
+Reward
+
+6. Design Principles
+Đây là phần mình nghĩ bắt buộc phải có.
+Ví dụ:
+Competency First.
+Experience Before Explanation.
+Play Before Teaching.
+One Lesson = One Competency.
+Positive Reinforcement.
+Safe Failure.
+Human Review.
+Quality > Speed.

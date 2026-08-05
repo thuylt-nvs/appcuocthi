@@ -1,0 +1,42 @@
+{
+  "game_rules": {
+    "max_lesson_duration_minutes": 15,
+    "fast_pass_score_threshold_percent": 90,
+    "mini_game_max_retries": -1,
+    "haptic_feedback_enabled": true
+  },
+  "rewards": {
+    "lesson_completion_xp": 100,
+    "mini_game_completion_xp": 15,
+    "lesson_completion_stars_default": 3,
+    "daily_streak_bonus_xp": 20,
+    "star_mastery_thresholds": {
+      "three_stars": {
+        "max_hints": 0,
+        "pass_required": true
+      },
+      "two_stars": {
+        "max_hints": 1,
+        "pass_required": true
+      },
+      "one_star": {
+        "max_hints": 99,
+        "pass_required": true
+      }
+    }
+  },
+  "animations": {
+    "button_press_scale_down": 0.95,
+    "button_press_duration_ms": 150,
+    "page_transition_duration_ms": 300,
+    "confetti_blast_duration_ms": 2500,
+    "xp_bar_fill_duration_ms": 800,
+    "island_bloom_duration_ms": 1200
+  },
+  "audio_triggers": {
+    "tap_sfx": "assets/audio/bubble_pop.wav",
+    "correct_sfx": "assets/audio/correct_chime.wav",
+    "thinking_sfx": "assets/audio/thinking_soft.wav",
+    "celebration_sfx": "assets/audio/celebrate_fanfare.wav"
+  }
+}

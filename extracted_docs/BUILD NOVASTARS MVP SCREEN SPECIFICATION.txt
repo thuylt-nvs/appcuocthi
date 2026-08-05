@@ -1,0 +1,198 @@
+
+BUILD NOVASTARS MVP SCREEN SPECIFICATION (SSS)
+ROLE
+You are the Lead Product Designer, UX Architect, Flutter Architect and Mobile Design System Lead for NovaStars.
+Your mission is NOT to design UI mockups.
+Your mission is to create the complete Screen Specification Standard (SSS) for the NovaStars MVP.
+The Screen Specification will become the single source of truth for Product, UX, Engineering, QA and AI.
+Every future screen in NovaStars must follow this specification.
+
+PROJECT CONTEXT
+Assume the following documents already exist and are approved:
+MVP_CONTEXT
+MVP_COMPETENCY_CONTEXT
+MVP_GAME_SYSTEM
+MVP_LEARNING_EXPERIENCE
+MVP_APP_SPEC
+MVP_UI_UX_GUIDELINES
+Do NOT redefine them.
+Instead, use them as design constraints.
+
+DESIGN GOAL
+Design a universal screen specification system.
+The specification must be detailed enough that a Flutter developer can implement the screen without asking additional questions.
+Every screen should be implementation-ready.
+
+REQUIRED OUTPUT
+PART 1 — Screen Specification Standard
+Design one universal template.
+Every screen must include:
+Screen Name
+Purpose
+User Goal
+Business Goal
+Learning Goal
+Entry Point
+Exit Point
+Previous Screen
+Next Screen
+
+PART 2 — Layout
+For every screen define:
+Header
+Body
+Primary CTA
+Secondary CTA
+Bottom Navigation
+Floating Components
+Dialogs
+Bottom Sheets
+Toast Messages
+
+PART 3 — UI Components
+For every screen define:
+Cards
+Buttons
+Icons
+Progress Bars
+Reward Components
+Animations
+Illustrations
+Characters
+NPCs
+Loading Components
+Empty State
+Error State
+Offline State
+Success State
+
+PART 4 — User Interaction
+Define:
+Tap Actions
+Swipe Actions
+Drag Actions
+Long Press
+Gesture Rules
+Disabled State
+Confirmation Dialogs
+
+PART 5 — Navigation
+Define:
+Navigation In
+Navigation Out
+Back Behavior
+Deep Link
+Resume Behavior
+Exit Confirmation
+
+PART 6 — Data
+For every screen specify:
+Data Read
+Data Write
+Firebase Collections
+Models
+Cached Data
+Temporary State
+Persistent State
+Offline Behavior
+
+PART 7 — AI Integration
+If applicable define:
+AI Help Button
+Hint Trigger
+Dialogue Trigger
+NPC Trigger
+AI Prompt Context
+Fallback Behavior
+
+PART 8 — Gamification
+Specify:
+XP
+Stars
+Rewards
+Badges
+Unlock
+Confetti
+Celebration
+Progress Update
+Daily Quest Update
+
+PART 9 — Accessibility
+Touch Target
+Font Size
+Color Contrast
+Reading Support
+Voice Support
+Error Prevention
+
+PART 10 — QA Checklist
+Every screen must include:
+Functional Checklist
+UX Checklist
+Learning Checklist
+Performance Checklist
+Accessibility Checklist
+Animation Checklist
+
+PART 11 — Screen Registry
+Generate the complete screen registry.
+Recommended screens:
+Splash
+Login
+Home
+World Map
+Island
+Competency Detail
+Pre-test
+Story
+Mini Game
+Boss
+Reflection
+Challenge
+Parent Verification
+Post-test
+Reward
+Profile
+Settings
+Store (optional)
+You may improve the list.
+
+PART 12 — Screen Dependency Map
+Explain how every screen connects to every other screen.
+Generate a complete navigation graph.
+
+PART 13 — Screen Lifecycle
+For every screen define:
+Created
+Implemented
+Reviewed
+Approved
+Released
+Deprecated
+
+PART 14 — Screen Naming Convention
+Define:
+IDs
+Naming Rules
+Folders
+Flutter Widget Names
+Route Names
+Analytics Names
+Firebase References
+
+PART 15 — Deliverables
+After creating the Screen Specification Standard,
+automatically generate detailed specifications for every MVP screen using the standard.
+Every screen should be implementation-ready.
+
+QUALITY REQUIREMENTS
+The output must be practical.
+Avoid theory.
+Optimize for:
+Flutter implementation
+UX consistency
+AI integration
+Fast MVP development
+Maintainability
+Scalability
+Every screen specification should allow a developer to build the screen without additional clarification.

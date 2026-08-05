@@ -1,0 +1,385 @@
+
+NovaStars MVP Component Library (MVP_COMPONENT_LIBRARY)
+Purpose
+This document defines every reusable UI component used in the NovaStars MVP.
+The component library ensures:
+UI consistency
+Fast development
+Reusable Flutter widgets
+Better UX
+Consistent gamification
+Easier maintenance
+Every screen must be built by assembling these components.
+
+Design Principles
+Every component must be:
+Child-friendly
+Touch-friendly
+Emotionally engaging
+Simple
+Reusable
+Accessible
+Consistent
+Animation-ready
+Children should recognize patterns immediately.
+
+Component Categories
+The component library is divided into seven groups:
+Navigation Components
+Learning Components
+Game Components
+Reward Components
+Progress Components
+System Components
+Character Components
+
+1. Navigation Components
+App Header
+Purpose
+Display page title and context.
+Contains
+Title
+Back Button
+Optional Progress
+Optional Settings
+
+Bottom Navigation
+Tabs
+Home
+Map
+Profile
+Always visible except during lesson mode.
+
+World Map
+Interactive map.
+Displays:
+Worlds
+Islands
+Current Position
+Locked Areas
+Completed Areas
+
+Island Card
+Displays
+Island Name
+Progress
+Boss Status
+Reward Preview
+States
+Locked
+Unlocked
+Completed
+Mastered
+
+2. Learning Components
+Competency Card
+Displays
+Competency Name
+Learning Goal
+Difficulty
+Estimated Time
+Reward
+CTA
+Start Learning
+
+Story Dialogue Bubble
+Displays
+Character Avatar
+Dialogue
+Emotion
+Optional Choices
+Supports branching stories.
+
+Decision Card
+Displays
+Situation
+Choices (2–4)
+Immediate feedback
+
+Reflection Card
+Displays one reflection question.
+One response at a time.
+
+Challenge Card
+Displays
+Real-life mission
+Instructions
+Parent Verification button
+
+3. Game Components
+Mini Game Container
+Reusable wrapper for all games.
+Contains
+Timer (optional)
+Progress
+Help Button
+Exit
+
+Drag & Drop Area
+Reusable interaction component.
+
+Matching Grid
+Supports:
+Image ↔ Image
+Image ↔ Text
+Text ↔ Text
+
+Sequence Builder
+Arrange events or actions in order.
+
+Choice Buttons
+2–4 options.
+Large touch targets.
+Immediate feedback.
+
+Boss Arena
+Displays
+Scenario
+Character
+Progress
+Decision Options
+One Boss per competency.
+
+4. Reward Components
+XP Card
+Displays XP earned.
+Animated.
+
+Star Reward
+Animated star collection.
+
+Badge Card
+Displays newly earned badge.
+
+Unlock Card
+Displays newly unlocked:
+Lesson
+Island
+Avatar
+Pet
+Decoration
+
+Celebration Popup
+Contains
+Confetti
+Character celebration
+Rewards
+Continue button
+Displayed after lesson completion.
+
+5. Progress Components
+XP Progress Bar
+Shows total XP.
+Animated.
+
+Lesson Progress Bar
+Displays lesson completion.
+Visible during learning.
+
+Island Progress Ring
+Shows completion percentage.
+
+World Progress Tracker
+Shows total world completion.
+
+Daily Quest Card
+Displays:
+Quest
+Progress
+Reward
+
+Streak Counter
+Displays:
+Current streak
+7-day milestone
+30-day milestone
+
+6. System Components
+Primary Button
+Large
+Rounded
+High contrast
+One primary action per screen.
+
+Secondary Button
+Lower emphasis.
+
+Confirmation Dialog
+Used before:
+Exit Lesson
+Reset Progress
+Purchase
+
+Toast Message
+Short feedback.
+Examples
+Great job!
+Almost there!
+Keep going!
+
+Loading Screen
+Contains
+Nova character
+Small animation
+Encouraging message
+
+Empty State
+Example
+"Your adventure is waiting!"
+Never show empty lists.
+
+Error State
+Positive wording.
+Example
+Let's try again!
+
+Offline Banner
+Displayed when offline.
+Progress saved locally.
+
+7. Character Components
+Character Avatar
+Supports
+Su
+Kem
+Sao Nova
+NPC
+Emotion states
+Happy
+Thinking
+Excited
+Surprised
+Encouraging
+
+Speech Bubble
+Character dialogue component.
+
+AI Help Bubble
+Appears only when learner taps Help.
+AI provides:
+Hint
+Explanation
+Encouragement
+Never gives direct answers.
+
+Animation Library
+Standard animations:
+Button Tap
+XP Increase
+Star Collection
+Unlock
+Confetti
+Progress Fill
+Character Celebration
+Map Unlock
+Boss Victory
+Animations should be short and meaningful.
+
+Sound Library
+Reusable sound effects:
+Tap
+Correct
+Incorrect
+Reward
+Unlock
+Victory
+Daily Quest Complete
+Never use harsh error sounds.
+
+Component States
+Every reusable component supports:
+Default
+Hover (Web)
+Pressed
+Disabled
+Loading
+Success
+Error
+Completed
+Locked
+Unlocked
+
+Naming Convention
+Every component follows:
+NS + Category + Component
+Examples:
+NSPrimaryButton
+NSCompetencyCard
+NSStoryBubble
+NSRewardPopup
+NSBossArena
+NSIslandCard
+NSProgressBar
+
+Flutter Mapping
+Every component should map directly to one reusable Flutter Widget.
+Example:
+NSPrimaryButton
+↓
+PrimaryButton.dart
+NSCompetencyCard
+↓
+CompetencyCard.dart
+NSRewardPopup
+↓
+RewardPopup.dart
+Reusable widgets should never duplicate logic.
+
+Component Checklist
+Every component must satisfy:
+✓ Child-friendly
+✓ Large touch target
+✓ Accessible
+✓ Reusable
+✓ Animated
+✓ Responsive
+✓ Consistent
+✓ Easy to maintain
+
+MVP Component Inventory
+Navigation Components
+App Header
+Bottom Navigation
+World Map
+Island Card
+Learning Components
+Competency Card
+Story Bubble
+Decision Card
+Reflection Card
+Challenge Card
+Game Components
+Mini Game Container
+Drag & Drop
+Matching Grid
+Sequence Builder
+Choice Buttons
+Boss Arena
+Reward Components
+XP Card
+Star Reward
+Badge Card
+Unlock Card
+Celebration Popup
+Progress Components
+XP Progress Bar
+Lesson Progress Bar
+Island Progress Ring
+World Progress Tracker
+Daily Quest Card
+Streak Counter
+System Components
+Primary Button
+Secondary Button
+Dialog
+Toast
+Loading
+Empty State
+Error State
+Offline Banner
+Character Components
+Avatar
+Speech Bubble
+AI Help Bubble
+Total MVP Components: 35 reusable components
+These components are sufficient to build every screen in the NovaStars MVP without introducing new UI patterns.

@@ -1,0 +1,204 @@
+
+NovaStars MVP Learning Experience (Executive Summary)
+Purpose
+This document defines the standard learning journey for every competency in the NovaStars MVP.
+Every competency follows the same structure to ensure a consistent, engaging and measurable learning experience.
+The objective is not only to help children answer correctly inside the app, but to help them demonstrate the competency in real life.
+
+Learning Philosophy
+NovaStars follows five principles:
+Learn by experiencing.
+Learn through stories before instruction.
+Practice through play.
+Apply in real life.
+Reinforce success with positive feedback.
+The lesson is designed to build confidence rather than create pressure.
+
+Standard Learning Journey
+Every competency follows exactly the same sequence.
+Pre-test
+    ↓
+Story
+    ↓
+Mini Game 1
+    ↓
+Mini Game 2
+    ↓
+Mini Game 3
+    ↓
+Boss Battle
+    ↓
+Reflection
+    ↓
+Real-life Challenge
+    ↓
+Parent Verification
+    ↓
+Post-test
+    ↓
+Reward
+
+Learning Stages
+Stage 1 — Pre-test
+Goal
+Quickly estimate whether the child already masters the competency.
+Characteristics
+Short assessment.
+Situation-based questions.
+Immediate feedback.
+No punishment for wrong answers.
+Outcomes
+≥90% → Competency mastered → Skip to Reward.
+<90% → Continue to learning journey.
+
+Stage 2 — Story
+Goal
+Create emotional engagement before teaching.
+Characteristics
+Story-driven.
+Branching decisions.
+Child identifies with the main character.
+NPCs appear when needed.
+Nova characters (Su, Kem, Sao Nova) accompany the learner.
+Success
+The child understands why the competency matters.
+
+Stage 3 — Mini Games
+Goal
+Practice the competency through interaction.
+Structure
+Three short mini games.
+Each game trains a different aspect of the competency.
+Examples:
+Drag & Drop
+Decision Making
+Matching
+Sequencing
+Simulation
+Conversation Practice
+Rules
+Positive feedback.
+Unlimited retries.
+Wrong answers trigger hints.
+Difficulty remains constant.
+
+Stage 4 — Boss Battle
+Goal
+Demonstrate competency in a complete scenario.
+Characteristics
+Story-based challenge.
+One integrated situation.
+Multiple decisions.
+No memorization.
+Can be replayed.
+Success
+The child successfully solves the problem using the competency.
+
+Stage 5 — Reflection
+Goal
+Help children consolidate learning.
+Reflection prompts
+What happened?
+What did you learn?
+What would you do next time?
+Why was that a good choice?
+Reflection happens inside the app.
+
+Stage 6 — Real-life Challenge
+Goal
+Transfer learning into daily life.
+Characteristics
+Can be completed within one day.
+Safe.
+Age appropriate.
+Practical.
+Related directly to the competency.
+Examples
+Greet a new classmate.
+Organize your school bag.
+Refuse politely.
+Help a family member.
+
+Stage 7 — Parent Verification
+Parents verify completion inside the child's device.
+Verification uses:
+Parent PIN / OTP.
+Suggested observation criteria.
+Simple confirmation.
+The goal is verification, not grading.
+
+Stage 8 — Post-test
+Goal
+Measure competency mastery after learning.
+Pass Criteria
+Score ≥90%.
+Complete Boss Battle.
+Complete Reflection.
+Complete Real-life Challenge.
+If the learner does not reach mastery, they may retry without penalty.
+
+Stage 9 — Reward
+Children receive:
+XP
+Stars
+Coins
+Badges
+Avatar Items
+Pets
+Island Progress
+Unlocks
+Rewards celebrate effort, persistence and competency mastery.
+
+AI Support
+AI assistance is available only when the learner requests Help.
+AI may:
+Explain mistakes.
+Give hints.
+Encourage the learner.
+Generate equivalent practice questions.
+Role-play conversations.
+AI never gives the answer directly.
+
+Success Criteria
+A learning experience is successful when the learner:
+Understands why the competency matters.
+Successfully completes the learning journey.
+Demonstrates the competency in the Boss Battle.
+Applies the competency in a real-life challenge.
+Passes the Post-test with at least 90%.
+Feels more confident than before starting.
+
+Design Rules
+Every lesson must:
+Teach exactly one competency.
+Have one clear learning objective.
+Include one memorable story.
+Include three meaningful mini games.
+Include one Boss Battle.
+End with one Reflection.
+Include one real-life challenge.
+Finish with positive reinforcement.
+
+Non-Negotiable Principles
+Competency before knowledge.
+Story before explanation.
+Play before instruction.
+Experience before memorization.
+Safe failure.
+Positive reinforcement.
+One lesson = One competency.
+Every lesson ends with a sense of achievement.
+Every lesson creates one "Aha!" moment.
+Every lesson prepares children to act confidently in real life.
+
+Definition of Done
+A Learning Experience is considered complete only when:
+The competency objective has been taught.
+The behavior objective has been practiced.
+The learner has completed every stage.
+The learner has demonstrated competency in the Boss Battle.
+The learner has completed the real-life challenge.
+Parent verification has been submitted.
+The learner has passed the Post-test.
+Rewards have been granted.
+Progress has been saved.

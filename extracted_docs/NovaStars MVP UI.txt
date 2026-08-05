@@ -1,0 +1,294 @@
+
+NovaStars MVP UI/UX Guidelines
+Design Mission
+NovaStars is not a learning app.
+NovaStars is an adventure game where children accidentally learn life skills.
+Every screen should make children feel:
+"I want to continue."
+Never make children feel:
+"I have to study."
+
+Experience Principles
+Every interaction should increase one of these feelings:
+Curiosity
+Confidence
+Achievement
+Discovery
+Progress
+Safety
+Joy
+Avoid:
+Stress
+Fear
+Failure
+Confusion
+Punishment
+
+Design Principles
+1. Adventure First
+Children should feel they are exploring a world.
+Not opening lessons.
+
+2. Progress is Visible
+Every action should show progress.
+Examples:
+XP increases
+Stars appear
+Progress bars move
+New paths unlock
+
+3. Positive Reinforcement
+Reward effort.
+Reward persistence.
+Reward improvement.
+Never punish mistakes.
+
+4. One Primary Action
+Every screen has one obvious action.
+Children should never wonder:
+"What should I do next?"
+
+5. Immediate Feedback
+Every tap receives instant feedback.
+Animation
+Sound
+Visual response
+No dead clicks.
+
+Visual Style
+The world should feel:
+Bright
+Friendly
+Magical
+Modern
+Clean
+Avoid:
+Academic
+Serious
+Corporate
+Text-heavy
+Dark interfaces
+
+Color System
+Primary
+Blue
+Adventure
+Secondary
+Yellow
+Achievement
+Success
+Green
+Growth
+Warning
+Orange
+Attention
+Error
+Red
+Only when necessary.
+Large colorful surfaces.
+High contrast.
+Accessible.
+
+Typography
+Friendly.
+Rounded.
+Easy to read.
+Large.
+Minimal text.
+Children should understand screens by looking,
+not reading.
+
+Iconography
+Icons should always be supported by labels.
+Use playful icons.
+Consistent visual language.
+
+Cards
+Cards are the primary UI component.
+Every card should clearly communicate:
+What this is.
+What happens next.
+What children will earn.
+
+Buttons
+Primary Button
+Large
+Rounded
+Bright
+Always at the bottom.
+Secondary Button
+Smaller
+Less visual weight.
+
+Navigation
+Simple.
+Only three bottom tabs.
+Home
+Map
+Profile
+Never hide important navigation.
+
+Home Screen
+Children immediately see:
+Continue Learning
+Daily Quest
+Current Progress
+Avatar
+No clutter.
+No dashboard complexity.
+
+World Map
+The World Map is the emotional center of the app.
+Children should feel:
+"I want to explore."
+The map should clearly show:
+Current location
+Completed paths
+Locked paths
+Next destination
+
+Island Screen
+Every island should feel different.
+Island identity is more important than menu layout.
+Each island should communicate:
+Theme
+Competency
+Progress
+Boss
+Reward
+
+Lesson Screen
+Children should always know:
+Where they are.
+What they are doing.
+How much remains.
+What they will earn.
+Never display long text.
+
+Story Experience
+Story is immersive.
+Characters speak through dialogue.
+Large illustrations.
+Minimal narration.
+Clear emotional moments.
+
+Mini Games
+Games should start within seconds.
+No instructions longer than one screen.
+Learning happens through interaction.
+Not explanation.
+
+Boss Battle
+Boss should feel exciting.
+Music.
+Animation.
+Celebration.
+Children should feel:
+"I'm ready."
+
+Reflection
+Simple.
+Friendly.
+One question at a time.
+No long forms.
+
+Rewards
+Every lesson ends with celebration.
+Use:
+Confetti
+Stars
+XP animation
+Unlock animation
+Character celebration
+Children should always finish smiling.
+
+Animation
+Animation should communicate:
+Progress
+Success
+Discovery
+Unlock
+Never animate for decoration only.
+Every animation has purpose.
+
+Sound
+Every interaction has feedback.
+Positive sounds.
+Friendly voice.
+Soft celebration.
+Never loud or stressful.
+
+Empty States
+Empty states should motivate.
+Never show:
+"No data."
+Instead show:
+"Let's begin your adventure!"
+
+Error States
+Never blame children.
+Instead of:
+Wrong.
+Use:
+Almost there!
+Let's try again!
+Great effort!
+
+Loading States
+Loading should feel alive.
+Characters wave.
+Nova gives encouragement.
+Small animations reduce waiting frustration.
+
+Accessibility
+Large touch targets.
+Simple gestures.
+Readable fonts.
+Color is never the only indicator.
+Support children with different reading abilities.
+
+Emotional Journey
+Every lesson should create this emotional curve:
+Curiosity
+↓
+Engagement
+↓
+Challenge
+↓
+Achievement
+↓
+Reflection
+↓
+Confidence
+↓
+Excitement for the next lesson
+
+Nova Characters
+Su
+Best friend
+Kem
+Adventure partner
+Sao Nova
+Mentor
+Characters encourage.
+Never lecture.
+
+Success Experience
+Children should finish every lesson believing:
+"I can do this."
+Not:
+"I got a good score."
+Confidence is the product.
+Scores are only evidence.
+
+Non-Negotiable Rules
+Story before explanation.
+Play before teaching.
+Reward before criticism.
+Curiosity before instruction.
+Progress is always visible.
+Every tap matters.
+Every lesson ends positively.
+Every screen has one clear purpose.
+Every child feels successful.
+Every experience builds confidence.
