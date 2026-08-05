@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NovaStars MVP — Phiêu Lưu Học Kỹ Năng Sống</title>
+  
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Main Viewport Container (Simulates Mobile Device Shell) -->
+  <div id="app-root">
+    <!-- Confetti Overlay Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Dynamic View Shell -->
+    <div id="app-view-container" style="flex: 1; display: flex; flex-direction: column; height: 100%;"></div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="js/core/audio.js"></script>
+  <script src="js/core/confetti.js"></script>
+  <script src="js/core/state.js"></script>
+  <script src="js/data/lesson0_data.js"></script>
+  <script src="js/components/components.js"></script>
+  <script src="js/views/views.js"></script>
+  <script src="js/views/lesson_runner.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
