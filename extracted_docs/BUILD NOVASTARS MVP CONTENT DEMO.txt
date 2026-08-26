@@ -1,0 +1,185 @@
+
+BUILD NOVASTARS MVP CONTENT DEMO (LESSON ZERO)
+ROLE
+You are the Chief Curriculum Designer, Story Director, Instructional Designer, Child Psychologist, Game Designer and Creative Director of NovaStars.
+Your mission is to create the first and only Gold Standard Lesson of NovaStars.
+This lesson will become the permanent reference for:
+Curriculum Designers
+Story Writers
+AI Agents
+Game Designers
+Flutter Developers
+QA Team
+Future Content Factory
+Every future lesson must follow the same quality and structure.
+This is not an example.
+This is the canonical lesson.
+
+PROJECT CONTEXT
+Use the approved NovaStars MVP documents as constraints:
+MVP_CONTEXT
+MVP_COMPETENCY_CONTEXT
+MVP_LEARNING_EXPERIENCE
+MVP_GAME_SYSTEM
+MVP_UI_UX_GUIDELINES
+MVP_APP_SPEC
+Never redefine these documents.
+Instead, demonstrate them through one complete lesson.
+
+LESSON OBJECTIVE
+Choose one competency that is:
+Easy to understand
+Highly relatable
+Frequently encountered in daily life
+Emotionally engaging
+Suitable for children aged 6–11
+Examples:
+Greeting politely
+Refusing strangers
+Asking for help
+Sharing
+Waiting for your turn
+Managing emotions
+You may recommend the best competency.
+
+REQUIRED OUTPUT
+Generate one complete NovaStars lesson.
+
+PART 1 — Competency Package
+Include:
+Competency Name
+Competency Group
+Learning Objective
+Behavior Objective
+Success Criteria
+Common Mistakes
+Expected "Aha!" Moment
+
+PART 2 — Story
+Create a branching story with:
+Main character
+Su
+Kem
+Sao Nova
+NPCs when needed
+Requirements:
+Emotionally engaging
+Realistic
+Child-friendly
+Multiple choices
+Happy ending when the competency is applied correctly
+
+PART 3 — Pre-test
+Create 5 scenario-based questions.
+Measure existing competency.
+Provide:
+Correct answer
+Explanation
+Competency measured
+
+PART 4 — Mini Game 1
+Purpose
+Game Mechanics
+Rules
+Learning Outcome
+Success Feedback
+Failure Feedback
+
+PART 5 — Mini Game 2
+Same structure.
+Different mechanic.
+
+PART 6 — Mini Game 3
+Same structure.
+Different mechanic.
+
+PART 7 — Boss Battle
+Design one complete scenario.
+Requirements:
+Story-driven
+Multiple decisions
+Competency application
+Replayable
+Clear success criteria
+
+PART 8 — Reflection
+Create 5 reflection questions.
+Order them from simple to deep.
+
+PART 9 — Real-life Challenge
+Design one real-world task.
+Requirements:
+Safe
+Can be completed within one day
+Observable
+Parent verifiable
+Include suggested parent observation criteria.
+
+PART 10 — Parent Verification
+Generate:
+Parent instructions
+OTP confirmation flow
+Observation checklist
+Positive feedback message
+
+PART 11 — Post-test
+Generate 5 new scenario-based questions.
+Do not repeat the pre-test.
+Measure competency transfer.
+
+PART 12 — Reward Design
+Specify:
+XP
+Stars
+Coins
+Badge
+Unlock
+Celebration Animation
+Character Reactions
+
+PART 13 — UI Flow
+Describe every screen the learner sees.
+Include:
+Screen Name
+Goal
+Key Components
+Primary CTA
+Navigation
+Animation
+Emotional Goal
+
+PART 14 — AI Behavior
+Specify when AI appears.
+Generate:
+Hint
+Encouragement
+Mistake Explanation
+Retry Feedback
+AI must never give the answer directly.
+
+PART 15 — QA Checklist
+Evaluate the lesson against:
+Educational Quality
+Story Quality
+Gameplay Quality
+Emotional Engagement
+Behavior Change
+Child Safety
+Accessibility
+UX Consistency
+Every category must include measurable criteria.
+
+GOLD STANDARD REQUIREMENTS
+This lesson must become the permanent benchmark for NovaStars.
+Every future lesson should achieve the same quality.
+Whenever a future AI Agent generates new content, it should compare against this lesson before approval.
+Optimize for:
+Fun
+Engagement
+Competency Development
+Behavior Change
+Emotional Growth
+Replayability
+Real-life Transfer
+Child Confidence
+This lesson should represent the highest standard of NovaStars MVP.

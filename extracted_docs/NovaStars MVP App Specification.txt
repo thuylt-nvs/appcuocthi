@@ -1,0 +1,325 @@
+
+NovaStars MVP App Specification (MVP_APP_SPEC)
+Product Goal
+Build the first playable version of NovaStars.
+The objective is to validate that primary school students enjoy learning life skills through a Duolingo-inspired adventure game.
+This is an MVP.
+The application should optimize for:
+Fast learning
+High engagement
+Daily return
+Simple implementation
+Not scalability.
+
+MVP Scope
+The MVP contains only one complete learning world.
+Example:
+World 1
+↓
+5 Islands
+↓
+Each Island
+↓
+5 Competencies
+Total:
+25 Competencies
+One complete learning experience per competency.
+
+Navigation Structure
+Splash
+
+↓
+
+Login
+
+↓
+
+Home
+
+↓
+
+World Map
+
+↓
+
+Island
+
+↓
+
+Competency
+
+↓
+
+Lesson
+
+↓
+
+Reward
+
+↓
+
+Back to Map
+Bottom Navigation
+Home
+Map
+Profile
+
+Screen Specification
+1. Splash Screen
+Purpose
+Load application.
+Check authentication.
+Navigate automatically.
+Components
+Logo
+Loading animation
+
+2. Login
+Purpose
+Sign in.
+Methods
+Google
+Apple
+Email
+Guest (optional)
+After login
+↓
+Go Home.
+
+3. Home
+Purpose
+Daily starting point.
+Components
+Greeting
+Avatar
+XP
+Stars
+Daily Quest
+Continue Learning
+Latest Reward
+Primary CTA
+Continue Learning
+
+4. World Map
+Purpose
+Adventure navigation.
+Components
+World
+Islands
+Locked Islands
+Completed Islands
+Current Position
+Children should always know:
+Where they are.
+Where they can go next.
+
+5. Island
+Purpose
+Display competencies.
+Components
+Island Progress
+Competency Nodes
+Boss
+Completion Reward
+Node Status
+Locked
+Unlocked
+Completed
+Mastered
+
+6. Competency Detail
+Purpose
+Preview lesson.
+Display
+Competency
+Learning Goal
+Estimated Time
+Rewards
+Progress
+CTA
+Start
+
+7. Lesson
+Lesson Flow
+Pre-test
+↓
+Story
+↓
+Mini Game 1
+↓
+Mini Game 2
+↓
+Mini Game 3
+↓
+Boss
+↓
+Reflection
+↓
+Challenge
+↓
+Post-test
+↓
+Reward
+Every lesson follows this structure.
+
+8. Reward
+Display
+XP
+Stars
+Coins
+Badges
+Unlock
+Confetti Animation
+CTA
+Continue
+
+9. Profile
+Display
+Avatar
+XP
+Stars
+Completed Competencies
+Completed Islands
+Achievements
+Current Streak
+
+Learning Rules
+One Lesson
+=
+One Competency
+Maximum duration
+15–20 minutes.
+Children may replay any lesson.
+No penalty.
+
+Progress Rules
+Progress is stored for:
+Lesson
+Competency
+Island
+World
+XP
+Stars
+Rewards
+Streak
+
+Unlock Rules
+Complete Lesson
+↓
+Unlock next Competency
+Complete Island
+↓
+Unlock next Island
+Premium content
+↓
+Unlock via purchase or Stars
+
+Reward Rules
+Every lesson grants:
+XP
+Stars
+Coins
+Possible Badge
+Possible Cosmetic
+Possible Unlock
+Reward is always positive.
+No punishment.
+
+Daily Quest
+Three quests generated daily.
+Examples
+Complete one lesson.
+Complete one Boss.
+Finish one challenge.
+Daily Quest grants bonus XP.
+
+Boss Rules
+One Boss per competency.
+Boss validates competency mastery.
+Replay allowed.
+Must pass to complete lesson.
+
+Reflection Rules
+One reflection per lesson.
+Reflection is mandatory.
+Short.
+Inside app only.
+
+Challenge Rules
+One real-life challenge.
+One-day completion.
+Parent verification required.
+
+Parent Verification
+Parent enters PIN / OTP.
+Confirms challenge completion.
+No grading.
+Only verification.
+
+Save System
+Automatically save:
+Current screen
+Lesson progress
+XP
+Rewards
+Challenge
+Streak
+Offline progress
+
+Error Handling
+If internet disconnects
+↓
+Continue offline.
+Sync later.
+If crash occurs
+↓
+Resume last lesson.
+
+MVP Database Objects
+User
+Profile
+World
+Island
+Competency
+Lesson
+Story
+Mini Game
+Boss
+Reflection
+Challenge
+Reward
+Progress
+Daily Quest
+
+Success Metrics
+The MVP succeeds when:
+A child completes one competency independently.
+A child returns the next day.
+A child completes an island.
+Parents understand the value.
+The learning journey feels like a game.
+
+Non-Goals
+Do NOT build:
+AI Content Factory
+CMS
+Teacher Portal
+Marketplace
+Multiplayer
+Localization
+Advanced Analytics
+Advanced Pet Skills
+Live Events
+Community Features
+
+Definition of Done
+The MVP is complete when a child can:
+Log in.
+Select an island.
+Choose a competency.
+Complete the full learning journey.
+Receive rewards.
+Unlock new progress.
+Exit with progress saved.
+Return the next day and continue playing.
+If these eight actions work smoothly, the MVP has achieved its purpose.

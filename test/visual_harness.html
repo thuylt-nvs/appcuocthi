@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NovaStars QA & Visual Capture Harness</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Core App Stylesheet -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- App Core Modules -->
+  <script src="../js/core/state.js"></script>
+  <script src="../js/core/nvs_competency.js"></script>
+  <script src="../js/services/championship_date_service.js"></script>
+  <script src="../js/config/championship_config.js"></script>
+  <script src="../js/core/championship_models.js"></script>
+  <script src="../js/data/championship_questions.js"></script>
+  <script src="../js/services/local_storage_repository.js"></script>
+  <script src="../js/services/championship_economy_service.js"></script>
+  <script src="../js/services/exam_service.js"></script>
+  <script src="../js/services/championship_state_service.js"></script>
+  <script src="../js/services/championship_analytics_engine.js"></script>
+  <script src="../js/controllers/championship_exam_controller.js"></script>
+  <script src="../js/controllers/championship_training_controller.js"></script>
+  <script src="../js/components/championship_ui_components.js"></script>
+  <script src="../js/views/championship_views.js"></script>
+  <script src="../js/components/layout.js"></script>
+  <script src="../js/components/cards.js"></script>
+  <script src="../js/components/modals.js"></script>
+  <script src="../js/components/components.js"></script>
+  <script src="../js/views/views.js"></script>
+  <script src="../js/app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      background-color: #0F172A;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main, 'Nunito', sans-serif);
+      width: 100%;
+      overflow-x: hidden;
+    }
+    #app-root {
+      width: 100%;
+      max-width: 414px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #F8FAFC;
+      position: relative;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    #app-view-container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app-root">
+    <main id="app-view-container"></main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      localStorage.clear();
+      window.appState = new AppState();
+      window.appState.data.user = { id: 'student_su', name: 'Su', grade: 4, avatar: '⭐' };
+      window.appState.data.hasSeenFTUE = true;
+      window.appState.saveToStorage();
+
+      window.app = new AppController();
+      window.app.init();
+
+      const repo = new LocalStorageRepository(window.appState);
+      const stateService = new ChampionshipStateService(repo);
+      stateService.ensureStateSchema();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetScreen = urlParams.get('screen') || 'championship_home';
+
+      // QA Route & Content Sanity Verification
+      function verifyRouteAndSanity(expectedView, markerText, customCheck) {
+        const container = document.getElementById('app-view-container');
+        const activeViewEl = container.querySelector(`[data-view="${expectedView}"]`);
+        
+        if (!activeViewEl) {
+          throw new Error(`QA_FATAL_ERROR: Rendered DOM is missing [data-view="${expectedView}"]. Current view state: ${window.appState.data.currentView}`);
+        }
+
+        const allViews = container.querySelectorAll('[data-view]');
+        if (allViews.length > 1) {
+          throw new Error(`QA_FATAL_ERROR: Multiple top-level [data-view] elements found (${allViews.length}). Clean single view required.`);
+        }
+
+        if (markerText && !container.innerText.includes(markerText)) {
+          throw new Error(`QA_FATAL_ERROR: Rendered view [${expectedView}] does not contain expected marker text: "${markerText}"`);
+        }
+
+        if (typeof customCheck === 'function') {
+          customCheck(container);
+        }
+
+        console.log(`✅ QA ROUTE & CONTENT PASSED: view="${expectedView}", marker="${markerText}"`);
+        window.harnessReady = true;
+      }
+
+      // Wait for fonts & two animation frames
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+      switch(targetScreen) {
+        case 'base_home':
+          window.app.navigateTo('home');
+          verifyRouteAndSanity('home', 'NovaStars Base');
+          break;
+
+        case 'championship_home':
+          window.app.navigateTo('championship_home');
+          verifyRouteAndSanity('championship_home', 'Bài Thi Hôm Nay');
+          break;
+
+        case 'exam_ready':
+          window.app.navigateTo('championship_exam_ready');
+          verifyRouteAndSanity('championship_exam_ready', 'BẮT ĐẦU BÀI THI');
+          break;
+
+        case 'exam_question':
+          window.app.startExamFromReadyUI(4);
+          verifyRouteAndSanity('championship_exam_question', 'Câu 1/20', (c) => {
+            const options = c.querySelectorAll('.ns-option-item');
+            if (options.length !== 4) {
+              throw new Error(`QA_FATAL_ERROR: Expected 4 option elements for Grade 4 exam but got ${options.length}`);
+            }
+          });
+          break;
+
+        case 'exam_question_g13':
+          window.appState.data.user.grade = 2;
+          window.appState.saveToStorage();
+          window.app.startExamFromReadyUI(2);
+          verifyRouteAndSanity('championship_exam_question', 'Câu 1/15', (c) => {
+            const options = c.querySelectorAll('.ns-option-item');
+            if (options.length !== 4) {
+              throw new Error(`QA_FATAL_ERROR: Expected 4 option elements for Grade 1-3 exam but got ${options.length}`);
+            }
+          });
+          break;
+
+        case 'exam_review':
+          window.app.startExamFromReadyUI(4);
+          window.app.selectExamOptionUI('A');
+          window.app.nextExamQuestionUI();
+          window.app.selectExamOptionUI('B');
+          window.app.navigateTo('championship_exam_review');
+          verifyRouteAndSanity('championship_exam_review', 'Tổng Quan Bài Làm');
+          break;
+
+        case 'exam_result':
+          window.app.startExamFromReadyUI(4);
+          window.app.examController.activeQuestionPool.forEach((q, i) => {
+            window.app.examController.saveAnswer(q.id, i % 2 === 0 ? q.correctAnswer : 'X');
+          });
+          window.app.examController.submitExam(false);
+          window.app.navigateTo('championship_exam_result');
+          verifyRouteAndSanity('championship_exam_result', 'PRACTICE SCORE');
+          break;
+
+        case 'skill_boost_question':
+          window.app.startSkillBoostSessionUI('NL4');
+          const q0 = window.app.trainingController.activeQuestions[0];
+          window.app.submitSkillBoostAnswerUI(q0.correctAnswer);
+          window.app.navigateTo('championship_skill_boost_question');
+          verifyRouteAndSanity('championship_skill_boost_question', 'Skill Boost');
+          break;
+
+        case 'skill_boost_complete':
+          window.app.startSkillBoostSessionUI('NL4');
+          (window.app.trainingController.activeQuestions || []).forEach(q => {
+            window.app.submitSkillBoostAnswerUI(q.correctAnswer);
+          });
+          window.app.trainingController.completeSkillBoost();
+          window.app.navigateTo('championship_skill_boost_complete');
+          verifyRouteAndSanity('championship_skill_boost_complete', '+30 XP');
+          break;
+
+        case 'base_home_after_boost':
+          window.app.startSkillBoostSessionUI('NL4');
+          (window.app.trainingController.activeQuestions || []).forEach(q => {
+            window.app.submitSkillBoostAnswerUI(q.correctAnswer);
+          });
+          window.app.trainingController.completeSkillBoost();
+          window.app.navigateTo('home');
+          verifyRouteAndSanity('home', 'NovaStars Base');
+          break;
+
+        default:
+          window.app.navigateTo('home');
+          verifyRouteAndSanity('home', 'NovaStars Base');
+      }
+    });
+  </script>
+</body>
+</html>

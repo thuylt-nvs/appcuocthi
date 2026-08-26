@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaStars × NVS Championship — Shareable Pilot Demo v0.2.2 Router</title>
+
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const mode = urlParams.get('mode');
+      const isDemo = urlParams.get('demo');
+
+      if (mode === 'team' || isDemo === 'showcase' || isDemo === 'true') {
+        window.location.replace('team_vision.html' + window.location.search);
+      } else {
+        window.location.replace('student_pilot.html' + window.location.search);
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p style="font-family: sans-serif; color: #64748B; text-align: center; margin-top: 40px;">
+    Redirecting to NovaStars Championship Pilot...
+  </p>
+</body>
+</html>

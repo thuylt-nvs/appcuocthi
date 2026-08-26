@@ -1,39 +1,56 @@
 /* ==========================================================================
-   NovaStars MVP — Universal Lesson Runner Engine (10-Stage State Machine)
+   NovaStars MVP — Universal Lesson Runner Engine Orchestrator
+   Decomposed Sub-Controllers Architecture (Zero eval(), Dual Touch/Drag Support)
    ========================================================================== */
 
 class LessonRunner {
   constructor() {
     this.lessonData = null;
     this.currentStageIndex = 0;
+    this.currentSubIndex = 0;
     this.container = null;
-    this.dragSelectedIdx = null;
-    this.matchState = { left: null, right: null, matchedCount: 0 };
+    this.selectedDragIdx = null;
+    this.matchState = { left: null, right: null, matchedCount: 0, lefts: [], rights: [] };
     this.sequenceState = [];
+    this.selectedSeqIdx = null;
     this.bossHp = 100;
+    this.activeModalConfig = null;
   }
 
   init(containerId, lessonData) {
+    if (!containerId || !lessonData) return;
     this.container = document.getElementById(containerId);
     this.lessonData = lessonData;
     this.currentStageIndex = 0;
+    this.currentSubIndex = 0;
     this.bossHp = 100;
+    this.selectedDragIdx = null;
+    this.matchState = { left: null, right: null, matchedCount: 0, lefts: [], rights: [] };
+    this.sequenceState = [];
+    this.selectedSeqIdx = null;
+    this.activeModalConfig = null;
+
+    // DOM Cleanup: Remove all lingering modal roots
+    ['reward-popup-modal-root', 'hero-journal-modal-root', 'mission-intro-modal-root', 'ftue-modal-root'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+
     this.renderCurrentStage();
   }
 
   renderCurrentStage() {
-    if (!this.container || !this.lessonData) return;
+    if (!this.container || !this.lessonData || !Array.isArray(this.lessonData.stages)) return;
 
     const stage = this.lessonData.stages[this.currentStageIndex];
     if (!stage) return;
 
-    // Header HTML
-    const headerHtml = NSComponents.renderHeader({
-      title: this.lessonData.competencyName,
+    const headerHtml = NSLayout.renderHeader({
+      title: this.lessonData.competencyName || 'Bài Học',
       currentStage: this.currentStageIndex,
       totalStages: this.lessonData.stages.length,
-      xp: window.appState.data.xp,
-      stars: window.appState.data.stars,
+      xp: (window.appState && window.appState.data) ? window.appState.data.xp : 0,
+      stars: (window.appState && window.appState.data) ? window.appState.data.stars : 0,
       showProgress: true,
       onBack: "window.app.navigateTo('map')"
     });
@@ -42,314 +59,287 @@ class LessonRunner {
 
     switch (stage.type) {
       case 'pretest':
-        stageContentHtml = this.renderPretestStage(stage);
+        stageContentHtml = window.pretestController ? window.pretestController.render(stage, this.currentSubIndex) : '';
         break;
       case 'story':
-        stageContentHtml = this.renderStoryStage(stage);
+        stageContentHtml = window.storyController ? window.storyController.render(stage) : '';
         break;
       case 'minigame_drag':
-        stageContentHtml = this.renderDragStage(stage);
+        stageContentHtml = window.minigameController ? window.minigameController.renderDrag(stage, this.selectedDragIdx) : '';
         break;
       case 'minigame_match':
-        stageContentHtml = this.renderMatchStage(stage);
+        stageContentHtml = window.minigameController ? window.minigameController.renderMatch(stage, this.matchState) : '';
         break;
       case 'minigame_sequence':
-        stageContentHtml = this.renderSequenceStage(stage);
+        stageContentHtml = window.minigameController ? window.minigameController.renderSequence(stage, this.sequenceState, this.selectedSeqIdx) : '';
         break;
       case 'boss':
-        stageContentHtml = this.renderBossStage(stage);
+        stageContentHtml = window.bossController ? window.bossController.render(stage, this.currentSubIndex, this.bossHp) : '';
         break;
       case 'reflection':
-        stageContentHtml = this.renderReflectionStage(stage);
+        stageContentHtml = window.reflectionController ? window.reflectionController.renderReflection(stage) : '';
         break;
       case 'challenge':
-        stageContentHtml = this.renderChallengeStage(stage);
+        stageContentHtml = window.reflectionController ? window.reflectionController.renderChallenge(stage) : '';
         break;
       case 'parent_confirm':
-        stageContentHtml = this.renderParentStage(stage);
+        stageContentHtml = window.reflectionController ? window.reflectionController.renderParent(stage) : '';
         break;
       case 'posttest':
-        stageContentHtml = this.renderPosttestStage(stage);
+        stageContentHtml = window.pretestController ? window.pretestController.render(stage, 0) : '';
         break;
       default:
-        stageContentHtml = `<div class="ns-card">Stage type standard handler.</div>`;
+        stageContentHtml = `<div class="ns-card">Nội dung bài học đang được tải...</div>`;
+    }
+
+    let modalOverlayHtml = '';
+    if (this.activeModalConfig) {
+      modalOverlayHtml = NSModals.renderStoryFeedbackModal(this.activeModalConfig);
     }
 
     this.container.innerHTML = `
       ${headerHtml}
-      <div style="padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+      <div style="padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto;">
         <div>
-          <div style="margin-bottom: 12px; font-weight: 800; font-size: 0.9rem; color: var(--primary-blue); text-transform: uppercase;">
-            Màn ${this.currentStageIndex + 1} / ${this.lessonData.stages.length}: ${stage.title}
+          <div style="margin-bottom: 12px; font-weight: 800; font-size: 0.85rem; color: var(--primary-blue); text-transform: uppercase; letter-spacing: 0.5px;">
+            📍 Màn ${this.currentStageIndex + 1} / ${this.lessonData.stages.length}: ${stage.title || ''}
           </div>
           ${stageContentHtml}
         </div>
       </div>
+      ${modalOverlayHtml}
     `;
   }
 
-  /* 1. Pretest Stage */
-  renderPretestStage(stage) {
-    const q = stage.questions[0];
-    return NSComponents.renderChoiceButtons({
-      question: q.question,
-      options: q.options,
-      onSelect: "window.lessonRunner.handlePretestAnswer"
-    });
+  showModal(config) {
+    this.activeModalConfig = config;
+    this.renderCurrentStage();
   }
 
-  handlePretestAnswer(optionIdx) {
-    window.soundEngine.playCorrect();
-    alert("Tuyệt vời! Bạn đã chọn đáp án thông minh. Hãy bước vào câu chuyện nhé!");
+  closeModalAndContinue() {
+    this.activeModalConfig = null;
+    this.renderCurrentStage();
+  }
+
+  closeModalAndNextStage() {
+    this.activeModalConfig = null;
     this.nextStage();
   }
 
-  /* 2. Story Stage */
-  renderStoryStage(stage) {
-    const d = stage.dialogues[0];
-    return NSComponents.renderStoryBubble({
-      characterName: d.speaker,
-      avatar: d.avatar,
-      text: d.text,
-      decision: stage.decision
-    });
+  advancePretestSubQuestion() {
+    const nextSub = this.activeModalConfig ? this.activeModalConfig.nextSubIndex : (this.currentSubIndex + 1);
+    this.activeModalConfig = null;
+    this.currentSubIndex = nextSub;
+    this.renderCurrentStage();
   }
 
-  handleStoryDecision(choiceIdx) {
+  advanceBossScenario() {
+    const nextSub = this.activeModalConfig ? this.activeModalConfig.nextSubIndex : (this.currentSubIndex + 1);
+    this.activeModalConfig = null;
+    this.currentSubIndex = nextSub;
+    this.renderCurrentStage();
+  }
+
+  /* Delegation Handlers */
+  handlePretestAnswer(optionIdx, evt) {
+    if (!this.lessonData || !Array.isArray(this.lessonData.stages)) return;
     const stage = this.lessonData.stages[this.currentStageIndex];
-    const choice = stage.decision.choices[choiceIdx];
-    if (choice.correct) {
-      window.soundEngine.playCorrect();
-      alert(choice.feedback);
-      this.nextStage();
-    } else {
-      window.soundEngine.playWrong();
-      alert(choice.feedback);
+    if (stage && stage.type === 'posttest') {
+      this.handlePosttestAnswer(optionIdx, evt);
+    } else if (window.pretestController) {
+      window.pretestController.handleAnswer(stage, this.currentSubIndex, optionIdx, this);
     }
   }
 
-  /* 3. Drag & Drop Stage */
-  renderDragStage(stage) {
-    return NSComponents.renderDragAndDrop({
-      instruction: stage.instruction,
-      draggables: stage.draggables,
-      targetZoneLabel: stage.targetZoneLabel
-    });
-  }
-
-  handleDragItemClick(idx) {
+  handleStoryDecision(choiceIdx, evt) {
+    if (!this.lessonData || !Array.isArray(this.lessonData.stages)) return;
     const stage = this.lessonData.stages[this.currentStageIndex];
-    const item = stage.draggables[idx];
-    if (item.isCorrect) {
-      window.soundEngine.playCorrect();
-      const dropzone = document.getElementById('ns-target-dropzone');
-      if (dropzone) {
-        dropzone.innerHTML += `<div class="ns-draggable-item" style="border-color: var(--accent-green); background: #ECFDF5;">${item.label}</div>`;
-      }
-      const sourceItem = document.getElementById(`drag-item-${idx}`);
-      if (sourceItem) sourceItem.style.display = 'none';
+    if (window.storyController) {
+      window.storyController.handleDecision(stage, choiceIdx, this);
+    }
+  }
 
-      // Check if finished
-      setTimeout(() => {
-        alert("Chính xác! Bạn đã chọn đúng cử chỉ lịch sự!");
-        this.nextStage();
-      }, 500);
+  /* Stage 3 Dual Interaction Handlers: Tap-to-Select & Drag-and-Drop */
+  handleDragItemClick(idx, evt) {
+    if (window.soundEngine) window.soundEngine.playTap();
+    this.selectedDragIdx = (this.selectedDragIdx === idx) ? null : idx;
+    this.renderCurrentStage();
+  }
+
+  handleDropZoneClick(evt) {
+    if (this.selectedDragIdx !== null && this.lessonData && Array.isArray(this.lessonData.stages)) {
+      const stage = this.lessonData.stages[this.currentStageIndex];
+      if (window.minigameController && stage) {
+        window.minigameController.processDragSelection(stage, this.selectedDragIdx, this);
+      }
+      this.selectedDragIdx = null;
+    }
+  }
+
+  handleDrop(evt) {
+    if (!evt) return;
+    evt.preventDefault();
+    const idxStr = evt.dataTransfer ? evt.dataTransfer.getData('text/plain') : '';
+    if (idxStr !== '' && this.lessonData && Array.isArray(this.lessonData.stages)) {
+      const stage = this.lessonData.stages[this.currentStageIndex];
+      if (window.minigameController && stage) {
+        window.minigameController.processDragSelection(stage, parseInt(idxStr, 10), this);
+      }
+      this.selectedDragIdx = null;
+    }
+  }
+
+  handleMatchClick(type, id, evt) {
+    if (!this.lessonData || !Array.isArray(this.lessonData.stages)) return;
+    const stage = this.lessonData.stages[this.currentStageIndex];
+    if (window.minigameController) {
+      window.minigameController.handleMatchClick(type, id, this.matchState, this, evt);
+    }
+  }
+
+  moveSequenceUp(idx, evt) {
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+    if (window.soundEngine) window.soundEngine.playTap();
+    if (idx > 0 && Array.isArray(this.sequenceState)) {
+      const temp = this.sequenceState[idx];
+      this.sequenceState[idx] = this.sequenceState[idx - 1];
+      this.sequenceState[idx - 1] = temp;
+      this.selectedSeqIdx = null;
+      this.renderCurrentStage();
+    }
+  }
+
+  moveSequenceDown(idx, evt) {
+    if (evt && evt.stopPropagation) evt.stopPropagation();
+    if (window.soundEngine) window.soundEngine.playTap();
+    if (Array.isArray(this.sequenceState) && idx < this.sequenceState.length - 1) {
+      const temp = this.sequenceState[idx];
+      this.sequenceState[idx] = this.sequenceState[idx + 1];
+      this.sequenceState[idx + 1] = temp;
+      this.selectedSeqIdx = null;
+      this.renderCurrentStage();
+    }
+  }
+
+  handleSequenceTap(idx, evt) {
+    if (window.soundEngine) window.soundEngine.playTap();
+    if (this.selectedSeqIdx === null) {
+      this.selectedSeqIdx = idx;
+    } else if (this.selectedSeqIdx === idx) {
+      this.selectedSeqIdx = null;
     } else {
-      window.soundEngine.playWrong();
-      alert("Hành vi này chưa lịch sự đâu, hãy chọn lại cử chỉ thân thiện nhé!");
+      const temp = this.sequenceState[this.selectedSeqIdx];
+      this.sequenceState[this.selectedSeqIdx] = this.sequenceState[idx];
+      this.sequenceState[idx] = temp;
+      this.selectedSeqIdx = null;
     }
-  }
-
-  /* 4. Matching Grid Stage */
-  renderMatchStage(stage) {
-    this.matchState = { left: null, right: null, matchedCount: 0 };
-    return NSComponents.renderMatchingGrid({
-      instruction: stage.instruction,
-      pairs: stage.pairs
-    });
-  }
-
-  handleMatchClick(type, id) {
-    window.soundEngine.playTap();
-    if (type === 'left') {
-      if (this.matchState.left) {
-        document.getElementById(`match-left-${this.matchState.left}`)?.classList.remove('active');
-      }
-      this.matchState.left = id;
-      document.getElementById(`match-left-${id}`)?.classList.add('active');
-    } else {
-      if (this.matchState.right) {
-        document.getElementById(`match-right-${this.matchState.right}`)?.classList.remove('active');
-      }
-      this.matchState.right = id;
-      document.getElementById(`match-right-${id}`)?.classList.add('active');
-    }
-
-    if (this.matchState.left && this.matchState.right) {
-      if (this.matchState.left === this.matchState.right) {
-        window.soundEngine.playCorrect();
-        document.getElementById(`match-left-${this.matchState.left}`)?.classList.add('matched');
-        document.getElementById(`match-right-${this.matchState.right}`)?.classList.add('matched');
-        this.matchState.matchedCount++;
-        this.matchState.left = null;
-        this.matchState.right = null;
-
-        if (this.matchState.matchedCount >= 3) {
-          setTimeout(() => {
-            alert("Tuyệt vời! Em đã ghép đúng tất cả lời chào lịch sự!");
-            this.nextStage();
-          }, 400);
-        }
-      } else {
-        window.soundEngine.playWrong();
-        setTimeout(() => {
-          document.getElementById(`match-left-${this.matchState.left}`)?.classList.remove('active');
-          document.getElementById(`match-right-${this.matchState.right}`)?.classList.remove('active');
-          this.matchState.left = null;
-          this.matchState.right = null;
-        }, 500);
-      }
-    }
-  }
-
-  /* 5. Sequence Stage */
-  renderSequenceStage(stage) {
-    this.sequenceState = [...stage.steps];
-    return NSComponents.renderSequenceBuilder({
-      instruction: stage.instruction,
-      steps: this.sequenceState
-    }) + `
-      <button class="ns-btn ns-btn-green" style="margin-top: 16px; width: 100%;" onclick="window.lessonRunner.checkSequence()">
-        <span>Xác Nhận Thứ Tự 3 Bước</span>
-      </button>
-    `;
-  }
-
-  moveSequence(idx, direction) {
-    window.soundEngine.playTap();
-    const newIdx = idx + direction;
-    if (newIdx < 0 || newIdx >= this.sequenceState.length) return;
-
-    const temp = this.sequenceState[idx];
-    this.sequenceState[idx] = this.sequenceState[newIdx];
-    this.sequenceState[newIdx] = temp;
-
     this.renderCurrentStage();
   }
 
   checkSequence() {
-    window.soundEngine.playCorrect();
-    alert("Chính xác! 3 bước chào ngôi sao: 1. Mỉm cười -> 2. Cất lời chào -> 3. Tự giới thiệu tên!");
-    this.nextStage();
-  }
+    const isCorrect = Array.isArray(this.sequenceState) &&
+      this.sequenceState.length === 3 &&
+      this.sequenceState.every((step, idx) => step.correctOrder === (idx + 1));
 
-  /* 6. Boss Stage */
-  renderBossStage(stage) {
-    const sc = stage.scenarios[0];
-    return NSComponents.renderBossArena({
-      bossName: stage.bossName,
-      instruction: stage.instruction,
-      scenario: sc,
-      currentHp: this.bossHp
+    if (isCorrect) {
+      if (window.soundEngine) window.soundEngine.playCorrect();
+      if (window.particleEngine) window.particleEngine.spawnStarBurst();
+    } else {
+      if (window.soundEngine) window.soundEngine.playWrong();
+    }
+
+    this.showModal({
+      title: isCorrect ? "Bí Kíp 3 Bước Chuẩn! 🌟" : "Gợi Ý Thứ Tự Ngôi Sao 💡",
+      avatar: "🌟",
+      speaker: "Sao Nova",
+      text: isCorrect
+        ? "Chính xác! 3 Bước Chào Ngôi Sao: 1. Mỉm Cười → 2. Cất Lời Chào → 3. Tự Giới Thiệu Tên!"
+        : "Bí kíp luôn bắt đầu bằng Nụ Cười mỉm ấm áp trước hết. Em hãy chạm vào 2 bước để thử đổi lại thứ tự nhé!",
+      isCorrect: isCorrect,
+      actionType: isCorrect ? "next" : "continue"
     });
   }
 
-  handleBossOption(optIdx) {
+  handleBossOption(optIdx, evt) {
+    if (!this.lessonData || !Array.isArray(this.lessonData.stages)) return;
     const stage = this.lessonData.stages[this.currentStageIndex];
-    const sc = stage.scenarios[0];
-    const opt = sc.options[optIdx];
-
-    if (opt.correct) {
-      window.soundEngine.playVictory();
-      this.bossHp = 0;
-      alert("Chiến thắng Boss! Bạn đã xử lý tình huống công viên cực kỳ xuất sắc!");
-      this.nextStage();
-    } else {
-      window.soundEngine.playWrong();
-      this.bossHp = Math.max(20, this.bossHp - opt.hpDamage);
-      const bar = document.getElementById('boss-hp-bar');
-      if (bar) bar.style.width = `${this.bossHp}%`;
-      alert(opt.feedback);
+    if (window.bossController) {
+      window.bossController.handleOption(stage, this.currentSubIndex, optIdx, this, evt);
     }
   }
 
-  /* 7. Reflection Stage */
-  renderReflectionStage(stage) {
-    return NSComponents.renderReflectionCard({
-      question: stage.question,
-      options: stage.options,
-      onSelect: "window.lessonRunner.handleReflectionSelect"
-    });
-  }
-
-  handleReflectionSelect(idx) {
-    window.soundEngine.playCorrect();
-    alert("Cảm ơn câu trả lời chân thành của em. Hãy mang nụ cười này ra ngoài đời thực nhé!");
-    this.nextStage();
-  }
-
-  /* 8. Challenge Stage */
-  renderChallengeStage(stage) {
-    return NSComponents.renderChallengeCard({
-      title: stage.title,
-      missionText: stage.missionText,
-      guideText: stage.guideText,
-      onComplete: "window.lessonRunner.nextStage()"
-    });
-  }
-
-  /* 9. Parent Confirmation Stage */
-  renderParentStage(stage) {
-    return NSComponents.renderParentConfirmModal({
-      parentPrompt: stage.parentPrompt,
-      onConfirm: "window.lessonRunner.handleParentConfirm()"
-    });
+  handleReflectionSelect(idx, evt) {
+    if (window.reflectionController) {
+      window.reflectionController.handleReflectionSelect(idx, this, evt);
+    }
   }
 
   handleParentConfirm() {
-    window.soundEngine.playVictory();
-    alert("Bằng chứng năng lực đã được lưu! Bố mẹ rất tự hào về em!");
-    this.nextStage();
-  }
-
-  /* 10. Posttest & Reward Stage */
-  renderPosttestStage(stage) {
-    return NSComponents.renderChoiceButtons({
-      question: stage.question,
-      options: stage.options,
-      onSelect: "window.lessonRunner.handlePosttestAnswer"
-    }) + `
-      <div id="reward-popup-container"></div>
-    `;
-  }
-
-  handlePosttestAnswer(idx) {
-    const stage = this.lessonData.stages[this.currentStageIndex];
-    window.soundEngine.playVictory();
-    window.confettiEngine.burst(100);
-
-    // Update global state
-    window.appState.addXP(stage.rewardData.xp);
-    window.appState.addStars(stage.rewardData.stars);
-    window.appState.completeLessonNode('island_1_node_1');
-
-    const popupContainer = document.getElementById('reward-popup-container');
-    if (popupContainer) {
-      popupContainer.innerHTML = NSComponents.renderCelebrationPopup({
-        title: "Hoàn Thành Xuất Sắc!",
-        xp: stage.rewardData.xp,
-        stars: stage.rewardData.stars,
-        badgeName: stage.rewardData.badgeName,
-        badgeIcon: stage.rewardData.badgeIcon,
-        onContinue: "window.app.navigateTo('map')",
-        onReplay: "window.lessonRunner.init('app-view-container', window.lessonZeroData)"
-      });
+    if (window.reflectionController) {
+      window.reflectionController.handleParentConfirm(this);
     }
+  }
+
+  /* Consolidated Single-Path Celebration Modal Rendering */
+  showCelebrationModal(rewardData) {
+    const data = rewardData || { xp: 100, stars: 3, badgeName: "Huy Chương Ngôi Sao Giao Tiếp", badgeIcon: "🏅" };
+    if (window.soundEngine) window.soundEngine.playVictory();
+    if (window.confettiEngine) window.confettiEngine.burst(120);
+
+    const existing = document.getElementById('reward-popup-modal-root');
+    if (existing) existing.remove();
+
+    const modalDiv = document.createElement('div');
+    modalDiv.id = 'reward-popup-modal-root';
+    modalDiv.innerHTML = NSModals.renderCelebrationPopup({
+      title: "Hoàn Thành Xuất Sắc!",
+      xp: data.xp || 100,
+      stars: data.stars || 3,
+      badgeName: data.badgeName || "Huy Chương Ngôi Sao Giao Tiếp",
+      badgeIcon: data.badgeIcon || "🏅",
+      onContinue: "window.app.showHeroJournalAndReturn()",
+      onReplay: "window.lessonRunner.replayLessonZero()"
+    });
+
+    const root = document.getElementById('app-root');
+    if (root) root.appendChild(modalDiv);
+  }
+
+  handlePosttestAnswer(idx, evt) {
+    if (!this.lessonData || !Array.isArray(this.lessonData.stages)) return;
+    const stage = this.lessonData.stages[this.currentStageIndex];
+    const rewardData = stage ? stage.rewardData : null;
+
+    if (window.appState) {
+      const xp = (rewardData && rewardData.xp) ? rewardData.xp : 100;
+      const stars = (rewardData && rewardData.stars) ? rewardData.stars : 3;
+      window.appState.addXP(xp);
+      window.appState.addStars(stars);
+      window.appState.completeLessonNode('island_1_node_1');
+    }
+
+    this.showCelebrationModal(rewardData);
+  }
+
+  replayLessonZero() {
+    ['reward-popup-modal-root', 'hero-journal-modal-root', 'mission-intro-modal-root', 'ftue-modal-root'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+
+    this.init('app-view-container', window.lessonZeroData);
   }
 
   nextStage() {
     this.currentStageIndex++;
-    if (this.currentStageIndex < this.lessonData.stages.length) {
+    this.currentSubIndex = 0;
+    this.selectedDragIdx = null;
+    this.matchState = { left: null, right: null, matchedCount: 0, lefts: [], rights: [] };
+    this.sequenceState = [];
+    this.selectedSeqIdx = null;
+    this.activeModalConfig = null;
+
+    if (this.lessonData && Array.isArray(this.lessonData.stages) && this.currentStageIndex < this.lessonData.stages.length) {
       this.renderCurrentStage();
     }
   }

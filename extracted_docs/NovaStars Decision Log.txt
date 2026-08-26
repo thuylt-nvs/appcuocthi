@@ -1,0 +1,226 @@
+
+NovaStars Decision Log (Architecture Decision Records)
+Version: 1.0 (Frozen)
+Status: Canonical Decision Log
+Purpose: Record the most important product, learning, gameplay and engineering decisions behind NovaStars so future team members and AI agents understand not only what was built, but why.
+
+ADR-001 — Competency is the Product
+Status
+Accepted
+Decision
+NovaStars is a competency platform.
+Lessons are not the product.
+Competency development is the product.
+Rationale
+Children do not benefit from completing lessons.
+They benefit from developing real-world competencies.
+Every engineering decision must ultimately support competency development rather than lesson completion.
+Consequences
+Success metrics focus on competency evidence rather than lesson completion.
+
+ADR-002 — Competency-First Architecture
+Status
+Accepted
+Decision
+All content originates from Competency Packages.
+Learning experiences, stories, games and assessments are generated from competencies.
+Rationale
+Competencies remain stable.
+Content evolves.
+Separating competencies from content enables continuous improvement without changing learning objectives.
+
+ADR-003 — Story Before Instruction
+Status
+Accepted
+Decision
+Every lesson begins with a story.
+Instruction is embedded inside gameplay.
+Rationale
+Children engage emotionally with stories before abstract instruction.
+Story creates motivation.
+Gameplay creates practice.
+Reflection creates meaning.
+
+ADR-004 — Gameplay Before Infrastructure
+Status
+Accepted
+Decision
+Engineering always prioritizes playable experiences over infrastructure completeness.
+Rationale
+The fastest way to validate product assumptions is through playable software.
+Infrastructure exists to support gameplay.
+
+ADR-005 — Vertical Slice Development
+Status
+Accepted
+Decision
+Development proceeds through complete playable slices rather than horizontal technical layers.
+Rationale
+Every milestone should produce something children can actually play.
+
+ADR-006 — Content-Driven Architecture
+Status
+Accepted
+Decision
+All lesson content is loaded from Content Packages.
+Widgets never contain learning content.
+Rationale
+Separating content from code enables rapid iteration and future AI content generation.
+
+ADR-007 — Configuration Over Hardcoding
+Status
+Accepted
+Decision
+Gameplay parameters belong in GameConfig rather than application code.
+Examples include:
+Rewards
+XP
+Animation timing
+Difficulty
+Unlock rules
+Rationale
+Designers should be able to tune gameplay without modifying code.
+
+ADR-008 — MVP Before Scale
+Status
+Accepted
+Decision
+The MVP includes only systems required to validate the core learning loop.
+Advanced systems such as AI tutoring, multiplayer, live events and CMS are intentionally deferred.
+Rationale
+Focus accelerates learning.
+Premature scalability delays validation.
+
+ADR-009 — Guest First
+Status
+Accepted
+Decision
+Guest Login is the primary authentication mechanism for MVP.
+Rationale
+Reducing friction increases the likelihood that children begin playing immediately.
+
+ADR-010 — Evidence Before Mastery
+Status
+Accepted
+Decision
+Competency mastery requires real-world evidence.
+Completing a lesson alone is insufficient.
+Validation Flow
+Lesson
+↓
+Real-life Challenge
+↓
+Parent Confirmation
+↓
+Competency Evidence
+↓
+Competency Mastered
+
+ADR-011 — Parent as Learning Partner
+Status
+Accepted
+Decision
+Parents participate only at key moments that validate real-world behavior.
+They are not expected to manage daily learning.
+Rationale
+Parental involvement should reinforce transfer, not interrupt gameplay.
+
+ADR-012 — Positive Failure
+Status
+Accepted
+Decision
+Failure never punishes.
+Failure teaches.
+Rationale
+Children should always feel encouraged to try again.
+Mistakes are part of learning.
+
+ADR-013 — Reward Growth, Not Only Correctness
+Status
+Accepted
+Decision
+Rewards recognize effort, persistence and real-world application, not only perfect answers.
+Examples
+Completing a challenge
+Trying again
+Maintaining a streak
+Practicing outside the app
+
+ADR-014 — Replay Must Have Purpose
+Status
+Accepted
+Decision
+Replay exists to deepen mastery rather than repeat content.
+Motivation
+Better score
+Better mastery
+Improved confidence
+Different story outcomes
+
+ADR-015 — AI Is an Enhancement, Not the Foundation
+Status
+Accepted
+Decision
+The MVP functions without AI.
+AI enhances future versions through:
+Adaptive hints
+Roleplay
+Coaching
+Personalization
+Rationale
+Core gameplay must remain valuable even without AI.
+
+ADR-016 — Feature-First + Gameplay-First Workspace
+Status
+Accepted
+Decision
+Engineering modules are organized by feature while preserving the gameplay flow.
+Rationale
+This balances Flutter maintainability with game production needs.
+
+ADR-017 — Playtest Over Opinion
+Status
+Accepted
+Decision
+Real user behavior outweighs internal discussion.
+Rationale
+When product opinions conflict, observe children.
+Children decide.
+
+ADR-018 — Every Milestone Must Be Playable
+Status
+Accepted
+Decision
+No milestone is considered complete until it can be played by a real child.
+Engineering completion alone is insufficient.
+
+ADR-019 — Freeze Before Build
+Status
+Accepted
+Decision
+Vision, Competency Framework, Learning Framework, Roadmap, Workspace and Implementation Plan are frozen before implementation.
+Rationale
+Engineering should execute, not continuously redesign.
+
+ADR-020 — Build for Tomorrow Without Delaying Today
+Status
+Accepted
+Decision
+The architecture should allow future expansion without implementing future systems prematurely.
+Future Extension Points
+AI Content Factory
+Remote Config
+Cloud Sync
+Multiplayer
+Seasonal Events
+Teacher Dashboard
+Parent Dashboard
+Additional Worlds
+
+How to Use This Decision Log
+Before introducing a major product or engineering change:
+Check whether an ADR already exists.
+If it exists, follow it unless there is strong evidence to change.
+If a change is required, create a new ADR rather than silently changing an old one.
+Never overwrite historical decisions. Mark them as Superseded if they are replaced.
+This document preserves the reasoning behind NovaStars and ensures long-term consistency as the product, team and AI production system evolve.

@@ -1,6 +1,6 @@
 /* ==========================================================================
-   NovaStars MVP — Audio Engine (Synthesized Web Audio API)
-   Zero external asset dependencies, zero network latency.
+   NovaStars MVP — Layered Audio Engine (Synthesized Web Audio API)
+   Zero external asset dependencies, zero network latency, instant response.
    ========================================================================== */
 
 class AudioEngine {
@@ -117,6 +117,52 @@ class AudioEngine {
       osc.start(now + idx * 0.09);
       osc.stop(now + idx * 0.09 + 0.3);
     });
+  }
+
+  playStarChime() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1318.51, now); // E6
+    osc.frequency.exponentialRampToValueAtTime(1760.00, now + 0.15); // A6
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.25);
+  }
+
+  playBossHit() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.exponentialRampToValueAtTime(40, now + 0.18);
+
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.2);
   }
 }
 

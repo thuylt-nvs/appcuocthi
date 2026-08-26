@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaStars × NVS Championship — Student Pilot (Internal Debug Entry)</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { background: #0F172A; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; overflow-x: hidden; }
+    #app-root { width: 100%; max-width: 640px; margin: 0 auto; min-height: 100vh; background: #F8FAFC; position: relative; overflow-x: hidden; box-sizing: border-box; padding-bottom: 90px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
+    #app-view-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
+  </style>
+</head>
+<body>
+
+  <div id="app-root">
+    <div id="app-view-container"></div>
+  </div>
+
+  <script src="../js/core/nvs_competency.js"></script>
+  <script src="../js/components/championship_ui_components.js"></script>
+  <script src="../js/views/championship_views.js"></script>
+  <script src="../js/components/layout.js"></script>
+  <script src="../js/components/cards.js"></script>
+  <script src="../js/components/modals.js"></script>
+  <script src="../js/components/components.js"></script>
+  <script src="../js/views/views.js"></script>
+
+  <script src="../js/demo/fixtures/pilot_exam_g13.js"></script>
+  <script src="../js/demo/fixtures/pilot_exam_g45.js"></script>
+  <script src="../js/demo/fixtures/pilot_skill_boost_g13.js"></script>
+  <script src="../js/demo/fixtures/pilot_skill_boost_g45.js"></script>
+
+  <script src="../js/demo/pilot_telemetry_repository.js"></script>
+  <script src="../js/demo/demo_student_views.js"></script>
+  <script src="../js/demo/demo_student_controller.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.DEMO_SHOWCASE = false;
+      const studentController = new DemoStudentController();
+      studentController.init();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetStep = urlParams.get('step');
+      const targetAge = urlParams.get('age');
+      if (targetAge === 'GRADE_1_3' || targetAge === 'GRADE_4_5') {
+        studentController.pilotState.ageGroup = targetAge;
+      }
+
+      if (targetStep !== null) {
+        const stepNum = parseInt(targetStep, 10);
+        if (stepNum === 4) {
+          studentController.pilotState.examScore = { score: 100, correctCount: 5, totalCount: 5 };
+        } else if (stepNum === 6) {
+          studentController.pilotState.boostXpEarned = 18;
+          studentController.pilotState.boostCorrectCount = 3;
+          studentController.pilotState.xp = 18;
+          studentController.pilotState.stars = 10;
+        } else if (stepNum === 8) {
+          studentController.pilotState.feedback = { q1: null, q2: null, q3: null, suggestion: '' };
+        }
+        studentController.goToStep(stepNum);
+      }
+    });
+  </script>
+
+</body>
+</html>

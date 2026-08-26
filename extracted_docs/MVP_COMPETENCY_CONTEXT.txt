@@ -1,0 +1,59 @@
+
+NovaStars MVP Context — Competency Framework (Executive Summary)
+1. Competency Groups
+The NovaStars curriculum is organized into core competency groups:
+Communication
+Self-Care & Independence
+Learning Skills
+Safety
+Emotional Skills
+Problem Solving
+Financial Literacy
+Social Responsibility
+Digital Citizenship
+Each group contains multiple competencies defined in the full Competency Framework.
+
+2. Competency Structure
+Competency Group → Competency → Learning Experience → Story → Mini Games → Boss Battle → Reflection → Real-life Challenge → Post-test → Competency Mastery
+
+3. Competency Package (Standard)
+Every competency follows one standard package:
+Competency Name
+Competency Group
+Competency Description
+Learning Objective
+Behavior Objective
+Story Scenario
+Mini Games
+Boss Battle
+Reflection
+Real-life Challenge
+Parent Verification
+Post-test
+Mastery Criteria
+
+4. Learning Objective
+Every competency defines what the learner should know, understand and be able to do after completing the lesson.
+Characteristics:
+Observable
+Measurable
+Competency-based
+Independent
+Achievable in one learning experience
+
+5. Behavior Objective
+Every competency must define one or more observable real-life behaviors.
+Behavior objectives must:
+Be observable
+Be measurable
+Be executable in daily life
+Be verifiable by parents
+Demonstrate competency transfer outside the app
+Competency is considered achieved only when the expected behavior is demonstrated consistently.
+
+Design Principles
+Competency First
+One Lesson = One Competency
+One Competency = One Behavior Change
+Learning exists to change behavior
+Assessment measures competency, not memorization

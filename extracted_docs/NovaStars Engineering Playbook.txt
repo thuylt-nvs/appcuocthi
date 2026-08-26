@@ -1,0 +1,309 @@
+
+NovaStars Engineering Playbook
+Version: 1.0 (Frozen)
+Status: Canonical Engineering Guide
+Applies to: All NovaStars MVP development
+
+1. Mission
+Engineering exists for one purpose:
+Build the most engaging competency-learning game for children.
+We do not build screens.
+We do not build features.
+We build experiences that help children become more confident in real life.
+Every engineering decision should support that mission.
+
+2. Product Hierarchy
+Always think from top to bottom.
+Never the reverse.
+Vision
+
+↓
+
+Competency
+
+↓
+
+Behavior
+
+↓
+
+Learning Experience
+
+↓
+
+Lesson
+
+↓
+
+Game
+
+↓
+
+Screen
+
+↓
+
+Widget
+
+↓
+
+Code
+Never optimize code at the expense of the learning experience.
+
+3. Engineering Philosophy
+NovaStars is developed like a modern game studio.
+Engineering supports gameplay.
+Gameplay supports learning.
+Learning supports competency.
+Competency creates real-world behavior change.
+The product is NOT the lesson.
+The product is competency development.
+
+4. Engineering Commandments
+Gameplay before architecture.
+Child experience before technical elegance.
+Story before instruction.
+Play before explanation.
+Configuration before hardcoding.
+Content before widgets.
+Simplicity before abstraction.
+Build vertically.
+Ship playable software frequently.
+Learn from playtests, not assumptions.
+
+5. Golden Rules
+NEVER hardcode:
+Story
+Questions
+XP
+Rewards
+Lesson Flow
+Competency Data
+Animation Timings
+Difficulty
+Challenge Content
+Everything comes from:
+Content Package
+GameConfig
+RewardConfig
+AnimationConfig
+
+6. Content Flow
+Competency Package
+
+↓
+
+Content Package
+
+↓
+
+Lesson Runner
+
+↓
+
+Gameplay
+
+↓
+
+Widgets
+
+↓
+
+Child
+Widgets must never contain curriculum logic.
+
+7. Gameplay Loop
+Core Loop
+Story
+
+↓
+
+Play
+
+↓
+
+Feedback
+
+↓
+
+Reflection
+
+↓
+
+Challenge
+
+↓
+
+Reward
+Meta Loop
+Lesson
+
+↓
+
+XP
+
+↓
+
+Unlock
+
+↓
+
+Island
+
+↓
+
+New Lesson
+Retention Loop
+Daily Quest
+
+↓
+
+Return Tomorrow
+
+↓
+
+Continue Adventure
+
+8. Definition of Playable
+A build is considered playable when:
+A child can complete it without adult guidance.
+The child always knows what to do next.
+There are no blocking bugs.
+The lesson feels like a game.
+The child wants to continue.
+The child wants to replay.
+
+9. Definition of Done
+A task is complete only when:
+Acceptance Criteria pass.
+Code review passes.
+QA passes.
+Flutter Analyze passes.
+Tests pass.
+UX review passes.
+Gameplay review passes.
+No critical bugs remain.
+
+10. Review Checklist
+Every review must check:
+Product
+Supports competency goals.
+Learning
+Reinforces intended behavior.
+Gameplay
+Fun
+Clear
+Responsive
+UX
+Child-friendly.
+Minimal cognitive load.
+Engineering
+Readable.
+Maintainable.
+Testable.
+
+11. Playtest Checklist
+Observe real children.
+Do not explain.
+Watch silently.
+Record:
+Where they smile.
+Where they hesitate.
+Where they get confused.
+Where they ask for help.
+Whether they replay.
+Whether they complete the lesson.
+Behavior is more valuable than opinions.
+
+12. Pull Request Rules
+One task per Pull Request.
+Maximum:
+400 lines changed.
+One responsibility.
+One reviewer.
+One review cycle.
+Small PRs are preferred over large PRs.
+
+13. Branch Strategy
+main
+
+↓
+
+milestone
+
+↓
+
+feature
+
+↓
+
+bugfix
+Never develop directly on main.
+
+14. Engineering Guardrails
+Every Feature:
+Owns its UI.
+Owns its State.
+Owns its Tests.
+Owns its Assets.
+No cross-feature business logic.
+No duplicated gameplay logic.
+
+15. Architecture Rules
+Widgets
+↓
+Controllers
+↓
+Repositories
+↓
+Data Sources
+↓
+Content Packages
+Dependency direction is one-way.
+Never reverse dependencies.
+
+16. Future-Proof Design
+Today's MVP should support tomorrow's expansion.
+Future integrations:
+AI Content Factory
+Remote Config
+Cloud Sync
+Multiplayer
+Seasonal Events
+Additional Worlds
+Do not build these now.
+Simply avoid blocking them.
+
+17. Product KPIs
+Engineering success is not measured by:
+Lines of code.
+Number of widgets.
+Number of screens.
+Engineering success is measured by:
+Lesson Completion Rate.
+Replay Rate.
+Next-Day Return.
+Parent Trust.
+Competency Evidence.
+Child Confidence.
+
+18. Decision Priority
+Whenever multiple solutions exist:
+Better child experience.
+Simpler gameplay.
+Simpler implementation.
+Better maintainability.
+Better scalability.
+Never reverse this order.
+
+19. Team Principles
+Everyone owns quality.
+Everyone reviews.
+Everyone playtests.
+Everyone protects the child experience.
+No engineering decision is made in isolation from product goals.
+
+20. Final Principle
+NovaStars is not building educational software.
+NovaStars is building a competency platform disguised as a game.
+Every line of code should move a child one step closer to becoming more capable, more confident and more independent in real life.

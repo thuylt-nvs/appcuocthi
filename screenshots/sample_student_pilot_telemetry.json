@@ -1,0 +1,95 @@
+{
+  "sessionId": "pilot_a8f9k2p",
+  "ageGroup": "GRADE_4_5",
+  "xp": 30,
+  "stars": 10,
+  "streak": 1,
+  "examAnswers": {
+    "g45_e1": 0,
+    "g45_e2": 0,
+    "g45_e3": 0,
+    "g45_e4": 0,
+    "g45_e5": 0
+  },
+  "examScore": {
+    "score": 100,
+    "correctCount": 5,
+    "totalCount": 5
+  },
+  "boostAnswers": {
+    "sb_1": 0,
+    "sb_2": 0,
+    "sb_3": 0
+  },
+  "feedback": {
+    "q1": 5,
+    "q2": "Coach Nova",
+    "q3": "Có!",
+    "suggestion": "Em rất thích Coach Nova và phần nhận thưởng sau bài làm!"
+  },
+  "events": [
+    {
+      "event": "pilot_started",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "timestamp": "2026-08-26T11:34:00.000Z"
+    },
+    {
+      "event": "championship_opened",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "timestamp": "2026-08-26T11:34:10.000Z"
+    },
+    {
+      "event": "short_exam_started",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "timestamp": "2026-08-26T11:34:25.000Z"
+    },
+    {
+      "event": "short_exam_completed",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "score": 100,
+      "correctCount": 5,
+      "totalCount": 5,
+      "timestamp": "2026-08-26T11:36:15.000Z"
+    },
+    {
+      "event": "practice_result_seen",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "timestamp": "2026-08-26T11:36:20.000Z"
+    },
+    {
+      "event": "skill_boost_started",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "timestamp": "2026-08-26T11:36:35.000Z"
+    },
+    {
+      "event": "skill_boost_completed",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "xpEarned": 30,
+      "starsEarned": 10,
+      "timestamp": "2026-08-26T11:37:45.000Z"
+    },
+    {
+      "event": "journey_seen",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "timestamp": "2026-08-26T11:38:00.000Z"
+    },
+    {
+      "event": "feedback_submitted",
+      "sessionId": "pilot_a8f9k2p",
+      "ageGroup": "GRADE_4_5",
+      "q1": 5,
+      "q2": "Coach Nova",
+      "q3": "Có!",
+      "suggestion": "Em rất thích Coach Nova và phần nhận thưởng sau bài làm!",
+      "timestamp": "2026-08-26T11:38:30.000Z"
+    }
+  ]
+}
