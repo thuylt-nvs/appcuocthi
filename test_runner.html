@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaStars Championship — Browser Runtime Test Runner (Review Gate 1)</title>
+  <style>
+    :root {
+      --bg-dark: #0F172A;
+      --card-bg: #1E293B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --pass-green: #10B981;
+      --fail-red: #EF4444;
+      --border-color: #334155;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 24px;
+      margin: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .header {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #FDE047;
+    }
+    .badge {
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+    .badge.passed { background: rgba(16, 185, 129, 0.2); color: var(--pass-green); border: 1px solid var(--pass-green); }
+    .badge.failed { background: rgba(239, 68, 68, 0.2); color: var(--fail-red); border: 1px solid var(--fail-red); }
+    
+    .test-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .test-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .test-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .test-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .status-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .status-tag.pass { background: var(--pass-green); color: #000; }
+    .status-tag.fail { background: var(--fail-red); color: #FFF; }
+    .error-details {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--fail-red);
+      color: #FCA5A5;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      border-radius: 4px;
+    }
+  </style>
+
+  <!-- Load Production Application JavaScript Modules in Browser Runtime -->
+  <script src="js/core/nvs_competency.js"></script>
+  <script src="js/services/championship_date_service.js"></script>
+  <script src="js/config/championship_config.js"></script>
+  <script src="js/core/championship_models.js"></script>
+  <script src="js/data/championship_questions.js"></script>
+  <script src="js/services/local_storage_repository.js"></script>
+  <script src="js/services/championship_economy_service.js"></script>
+  <script src="js/services/exam_service.js"></script>
+  <script src="js/services/championship_state_service.js"></script>
+  <script src="js/services/championship_analytics_engine.js"></script>
+  <script src="js/controllers/championship_exam_controller.js"></script>
+  <script src="js/controllers/championship_training_controller.js"></script>
+  <script src="js/components/championship_ui_components.js"></script>
+  <script src="js/views/championship_views.js"></script>
+
+  <!-- Load Runtime & Browser Test Runner Suites -->
+  <script src="test/runtime_test.js"></script>
+  <script src="test/browser_e2e_test.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div>
+        <div class="title">🧪 NovaStars Championship Runtime & Real-Browser Test Suite</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Review Gate 3A — JavaScript Engine & Real Browser E2E Validation</div>
+      </div>
+      <div id="summary-badge" class="badge">Đang chạy test...</div>
+    </div>
+
+    <div id="test-results" class="test-list">
+      <!-- Dynamic Test Card Rows -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const runner = new RuntimeTestRunner();
+      const summary = runner.runAll();
+
+      let browserSummary = { total: 0, passed: 0, failed: 0, results: [] };
+      if (typeof BrowserE2ETestSuite !== 'undefined') {
+        const e2e = new BrowserE2ETestSuite();
+        browserSummary = e2e.runAll();
+      }
+
+      const totalTests = summary.total + browserSummary.total;
+      const totalPassed = summary.passed + browserSummary.passed;
+      const totalFailed = summary.failed + browserSummary.failed;
+      const allResults = summary.results.concat(browserSummary.results);
+
+      const badgeEl = document.getElementById('summary-badge');
+      if (totalFailed === 0) {
+        badgeEl.className = 'badge passed';
+        badgeEl.textContent = `✅ ${totalPassed}/${totalTests} TESTS PASSED`;
+      } else {
+        badgeEl.className = 'badge failed';
+        badgeEl.textContent = `❌ ${totalFailed}/${totalTests} TESTS FAILED`;
+      }
+
+      const container = document.getElementById('test-results');
+      container.innerHTML = allResults.map(res => `
+        <div class="test-card">
+          <div class="test-header">
+            <span class="test-name">${res.name}</span>
+            <span class="status-tag ${res.passed ? 'pass' : 'fail'}">${res.passed ? 'PASSED' : 'FAILED'}</span>
+          </div>
+          ${res.error ? `<div class="error-details">${res.error}</div>` : ''}
+        </div>
+      `).join('');
+    });
+  </script>
+
+</body>
+</html>

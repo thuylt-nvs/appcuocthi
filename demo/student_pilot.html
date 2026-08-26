@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaStars × NVS Championship — Student Pilot v0.2.3B</title>
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    body {
+      background: #0F172A;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+    }
+    #app-root {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #F8FAFC;
+      position: relative;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      padding-bottom: 90px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+    #app-view-container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Student Viewport Container (Responsive Shell up to 640px) -->
+  <div id="app-root">
+    <div id="app-view-container"></div>
+  </div>
+
+  <!-- Pure UI Dependencies (Zero Production Question Data) -->
+  <script src="../js/core/nvs_competency.js"></script>
+  <script src="../js/components/championship_ui_components.js"></script>
+  <script src="../js/views/championship_views.js"></script>
+  <script src="../js/components/layout.js"></script>
+  <script src="../js/components/cards.js"></script>
+  <script src="../js/components/modals.js"></script>
+  <script src="../js/components/components.js"></script>
+  <script src="../js/views/views.js"></script>
+
+  <!-- Public Student Pilot Fixtures ONLY (Hardened Pilot Data v0.2.3B) -->
+  <script src="../js/demo/fixtures/pilot_exam_g13.js"></script>
+  <script src="../js/demo/fixtures/pilot_exam_g45.js"></script>
+  <script src="../js/demo/fixtures/pilot_skill_boost_g13.js"></script>
+  <script src="../js/demo/fixtures/pilot_skill_boost_g45.js"></script>
+
+  <!-- Telemetry Sink & Student Controller -->
+  <script src="../js/demo/pilot_telemetry_repository.js"></script>
+  <script src="../js/demo/demo_student_views.js"></script>
+  <script src="../js/demo/demo_student_controller.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.DEMO_SHOWCASE = false;
+      const studentController = new DemoStudentController();
+      studentController.init();
+    });
+  </script>
+
+</body>
+</html>
