@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/demo/student_pilot.html"
+    },
+    {
+      "source": "/student",
+      "destination": "/demo/student_pilot.html"
+    },
+    {
+      "source": "/team",
+      "destination": "/demo/team_vision.html"
+    },
+    {
+      "source": "/debug",
+      "destination": "/demo/student_pilot_debug.html"
+    }
+  ]
+}
