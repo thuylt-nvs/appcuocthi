@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NovaStars MVP — Phiêu Lưu Học Kỹ Năng Sống</title>
+  
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Main Viewport Container (Simulates Mobile Device Shell) -->
+  <div id="app-root">
+    <!-- Confetti Overlay Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Dynamic View Shell -->
+    <div id="app-view-container" style="flex: 1; display: flex; flex-direction: column; height: 100%;"></div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="js/core/audio.js"></script>
+  <script src="js/core/confetti.js"></script>
+  <script src="js/core/particles.js"></script>
+  <script src="js/core/state.js"></script>
+  <script src="js/data/lesson0_data.js"></script>
+
+  <!-- Modular Component Scripts -->
+  <script src="js/components/layout.js"></script>
+  <script src="js/components/cards.js"></script>
+  <script src="js/components/modals.js"></script>
+  <script src="js/components/components.js"></script>
+
+  <!-- Sub-Controller Scripts -->
+  <script src="js/controllers/pretest_controller.js"></script>
+  <script src="js/controllers/story_controller.js"></script>
+  <script src="js/controllers/minigame_controller.js"></script>
+  <script src="js/controllers/boss_controller.js"></script>
+  <script src="js/controllers/reflection_controller.js"></script>
+
+  <!-- Championship Training Core, Services, Controllers & UI Components -->
+  <script src="js/core/nvs_competency.js"></script>
+  <script src="js/services/championship_date_service.js"></script>
+  <script src="js/config/championship_config.js"></script>
+  <script src="js/core/championship_models.js"></script>
+  <script src="js/data/championship_questions.js"></script>
+  <script src="js/services/local_storage_repository.js"></script>
+  <script src="js/services/championship_economy_service.js"></script>
+  <script src="js/services/exam_service.js"></script>
+  <script src="js/services/championship_state_service.js"></script>
+  <script src="js/services/championship_analytics_engine.js"></script>
+  <script src="js/controllers/championship_exam_controller.js"></script>
+  <script src="js/controllers/championship_training_controller.js"></script>
+  <script src="js/components/championship_ui_components.js"></script>
+  <script src="js/views/championship_views.js"></script>
+
+  <!-- Views & Application Orchestration -->
+  <script src="js/views/views.js"></script>
+  <script src="js/views/lesson_runner.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
