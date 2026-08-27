@@ -31,7 +31,8 @@ const DemoPresenterPanel = {
     concept_leaderboard: "Tạo động lực thi đua lành mạnh mà không thao túng Pay-to-Win (chỉ tính XP từ 1 lượt luyện tập miễn phí/ngày).",
     concept_challenges: "Thử thách tốc độ giúp luyện phản xạ tự nhiên. Thử thách KHÔNG tạo lợi thế xếp hạng hay cộng điểm thi đấu chính thức NVS.",
     concept_premium_preview: "Chuyển đổi Premium đúng thời điểm học sinh có nhu cầu học tập cao nhất ('Hỏi Phụ Huynh').",
-    concept_parent_progress: "Học sinh là người học; Phụ huynh là người đồng hành, hỗ trợ, ra quyết định và chi trả."
+    concept_parent_progress: "Học sinh là người học; Phụ huynh là người đồng hành, hỗ trợ, ra quyết định và chi trả.",
+    concept_team_feedback: "Dành riêng cho đội ngũ NovaStars cùng thảo luận và thống nhất 5 câu hỏi định hướng sản phẩm."
   },
 
   /**

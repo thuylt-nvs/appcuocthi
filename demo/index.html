@@ -9,10 +9,9 @@
     (function() {
       const urlParams = new URLSearchParams(window.location.search);
       const mode = urlParams.get('mode');
-      const isDemo = urlParams.get('demo');
 
-      if (mode === 'team' || isDemo === 'showcase' || isDemo === 'true') {
-        window.location.replace('team_vision.html' + window.location.search);
+      if (mode === 'admin') {
+        window.location.replace('admin_dashboard.html' + window.location.search);
       } else {
         window.location.replace('student_pilot.html' + window.location.search);
       }

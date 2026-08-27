@@ -30,6 +30,7 @@ class DemoShowcaseController {
       { id: 'concept_competition_energy', name: 'Competition Energy Preview', classification: 'CONCEPT_PREVIEW', isDefaultGuided: true },
       { id: 'concept_premium_preview', name: 'Premium Explanation & Handoff', classification: 'CONCEPT_PREVIEW', isDefaultGuided: true },
       { id: 'concept_parent_progress', name: 'Parent Progress Dashboard', classification: 'CONCEPT_PREVIEW', isDefaultGuided: true },
+      { id: 'concept_team_feedback', name: 'Team Feedback & Discussion', classification: 'CONCEPT_PREVIEW', isDefaultGuided: false },
       // Auxiliary jump-accessible screens
       { id: 'demo_map', name: 'World Map', classification: 'LIVE_PRODUCT', isDefaultGuided: false },
       { id: 'demo_lesson', name: 'Lesson Completion', classification: 'LIVE_PRODUCT', isDefaultGuided: false },
@@ -269,6 +270,10 @@ class DemoShowcaseController {
 
       case 'concept_parent_progress':
         html = DemoConceptViews.renderParentProgress(this.demoState);
+        break;
+
+      case 'concept_team_feedback':
+        html = DemoConceptViews.renderTeamFeedback();
         break;
 
       case 'demo_map':

@@ -162,13 +162,13 @@ const DemoScenarioState = {
         { id: 'm3', title: 'Đạt chuỗi học 3 ngày', progress: Math.min(scenario.streak, 3), max: 3, rewardXp: 10, completed: scenario.streak >= 3 }
       ],
       competencySignals: [
-        { code: 'NL1', name: 'Năng lực Số & Dữ liệu', icon: '🔢', count: 18, practiceEvidence: 'Tích cực', status: 'Bằng chứng tốt' },
-        { code: 'NL2', name: 'Năng lực Ngôn ngữ & Truyền thông', icon: '🗣️', count: 14, practiceEvidence: 'Khá', status: 'Đang duy trì' },
-        { code: 'NL3', name: 'Năng lực Khoa học & Tự nhiên', icon: '🧪', count: 12, practiceEvidence: 'Khá', status: 'Đang duy trì' },
-        { code: 'NL4', name: 'Năng lực Giao tiếp, truyền cảm hứng và thuyết phục', icon: '🗣️', count: 25, practiceEvidence: 'Cần luyện thêm', status: 'Trọng tâm rèn luyện 🚀' },
-        { code: 'NL5', name: 'Năng lực Sáng tạo & Thiết kế', icon: '🎨', count: 10, practiceEvidence: 'Khá', status: 'Đang duy trì' },
-        { code: 'NL6', name: 'Năng lực Thích ứng & Tự chủ', icon: '🛡️', count: 8, practiceEvidence: 'Tốt', status: 'Tín hiệu cao' },
-        { code: 'NL7', name: 'Năng lực Hợp tác & Toàn cầu', icon: '🌐', count: 6, practiceEvidence: 'Khá', status: 'Đang duy trì' }
+        { code: 'NL1', name: 'Có mục đích và giá trị sống', icon: '🎯', count: 18, practiceEvidence: 'Tích cực', status: 'Bằng chứng tốt' },
+        { code: 'NL2', name: 'Có tư duy và năng lực học tập suốt đời', icon: '🧩', count: 14, practiceEvidence: 'Khá', status: 'Đang duy trì' },
+        { code: 'NL3', name: 'Trí tuệ cảm xúc và khả năng kết nối', icon: '❤️', count: 12, practiceEvidence: 'Khá', status: 'Đang duy trì' },
+        { code: 'NL4', name: 'Giao tiếp, truyền cảm hứng và thuyết phục', icon: '🗣️', count: 25, practiceEvidence: 'Cần luyện thêm', status: 'Trọng tâm rèn luyện 🚀' },
+        { code: 'NL5', name: 'Tinh thần công dân toàn cầu và trách nhiệm xã hội', icon: '🌍', count: 10, practiceEvidence: 'Khá', status: 'Đang duy trì' },
+        { code: 'NL6', name: 'Hành động, dám thử, dám thay đổi', icon: '🚀', count: 8, practiceEvidence: 'Tốt', status: 'Tín hiệu cao' },
+        { code: 'NL7', name: 'Kĩ năng công nghệ và trí tuệ nhân tạo', icon: '💻', count: 6, practiceEvidence: 'Khá', status: 'Đang duy trì' }
       ]
     };
   }
