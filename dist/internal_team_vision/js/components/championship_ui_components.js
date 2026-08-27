@@ -16,23 +16,24 @@ const ChampionshipUIComponents = {
     if (isExamMode) {
       // EXAM MODE: Visually distinct — focused, minimal, clean, no XP/Stars animation, no character interruption, NO rank badge in active exam header
       return `
-        <header class="ns-exam-header" style="background: #0F172A; color: #F8FAFC; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.3); box-sizing: border-box; width: 100%; min-width: 0;">
-          <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
-            ${onBack ? `<button class="ns-btn ns-btn-secondary" style="padding: 6px 10px; font-size: 0.9rem; background: #1E293B; color: #CBD5E1; border-color: #475569; flex-shrink: 0;" onclick="${onBack}">✕</button>` : ''}
-            <div style="min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-              <div style="font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: #FDE047; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</div>
+        <header class="ns-exam-header" style="background: #0F172A; color: #F8FAFC; padding: max(10px, env(safe-area-inset-top)) 14px 10px 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.3); box-sizing: border-box; width: 100%; min-width: 0; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+            ${onBack ? `<button class="ns-btn ns-btn-secondary" style="width: 40px; height: 40px; min-width: 40px; min-height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; background: #1E293B; color: #CBD5E1; border-color: #475569; border-radius: 12px; flex-shrink: 0;" onclick="${onBack}">✕</button>` : ''}
+            <div style="min-width: 0; flex: 1; overflow: hidden;">
+              <div style="font-family: var(--font-display); font-weight: 800; font-size: 0.92rem; color: #FDE047; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</div>
+              ${subtitle ? `<div style="font-size: 0.75rem; color: #94A3B8; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${subtitle}</div>` : ''}
             </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+          <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
             ${onToggleFlag ? `
-              <button class="ns-btn" style="padding: 6px 10px; font-size: 0.8rem; background: ${isFlagged ? '#EF4444' : '#334155'}; color: #FFF; border: none; border-radius: 6px; flex-shrink: 0;" onclick="${onToggleFlag}">
+              <button class="ns-btn" style="min-height: 38px; height: 38px; padding: 0 10px; font-size: 0.8rem; background: ${isFlagged ? '#EF4444' : '#334155'}; color: #FFF; border: none; border-radius: 10px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;" onclick="${onToggleFlag}">
                 ${isFlagged ? '🚩 Đã Đánh Dấu' : '🏳️ Đánh Dấu'}
               </button>
             ` : ''}
 
             ${showTimer ? `
-              <div style="background: #1E293B; border: 2px solid ${remainingSeconds < 180 ? '#EF4444' : '#3B82F6'}; color: ${remainingSeconds < 180 ? '#FCA5A5' : '#60A5FA'}; font-family: monospace; font-size: 1.05rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; flex-shrink: 0;">
+              <div style="background: #1E293B; border: 2px solid ${remainingSeconds < 180 ? '#EF4444' : '#3B82F6'}; color: ${remainingSeconds < 180 ? '#FCA5A5' : '#60A5FA'}; font-family: monospace; font-size: 0.95rem; font-weight: 800; padding: 4px 8px; border-radius: 8px; flex-shrink: 0;">
                 ⏱️ ${timeFormatted}
               </div>
             ` : ''}
@@ -43,18 +44,18 @@ const ChampionshipUIComponents = {
 
     // TRAIN MODE: Playful, vibrant, character-led
     return `
-      <header class="ns-app-header" style="background: linear-gradient(135deg, #1E1B4B, #312E81); border-bottom: 3.5px solid #FDE047; box-sizing: border-box; width: 100%; min-width: 0;">
+      <header class="ns-app-header" style="background: linear-gradient(135deg, #1E1B4B, #312E81); border-bottom: 3.5px solid #FDE047; box-sizing: border-box; width: 100%; min-width: 0; padding: max(10px, env(safe-area-inset-top)) 14px 10px 14px; min-height: 60px; height: auto; display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
-          ${onBack ? `<button class="ns-btn ns-btn-secondary" style="padding: 6px 12px; font-size: 0.9rem; flex-shrink: 0;" onclick="${onBack}">←</button>` : ''}
+          ${onBack ? `<button class="ns-btn ns-btn-secondary" style="width: 40px; height: 40px; min-width: 40px; min-height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; border-radius: 12px; flex-shrink: 0;" onclick="${onBack}">←</button>` : ''}
           <div style="min-width: 0; flex: 1; overflow: hidden;">
-            <div style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: #FDE047; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</div>
+            <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: #FDE047; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</div>
             ${subtitle ? `<div style="font-size: 0.75rem; color: #A5B4FC; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${subtitle}</div>` : ''}
           </div>
         </div>
 
-        <div style="display: flex; gap: 8px; flex-shrink: 0;">
-          <div class="ns-hud-badge stars">⭐ <span>${(typeof window !== 'undefined' && window.appState && window.appState.data) ? window.appState.data.stars : 0}</span></div>
-          <div class="ns-hud-badge">⚡ <span>${(typeof window !== 'undefined' && window.appState && window.appState.data) ? window.appState.data.xp : 0} XP</span></div>
+        <div style="display: flex; gap: 6px; flex-shrink: 0;">
+          <div class="ns-hud-badge stars" style="padding: 4px 10px; font-size: 0.85rem;">⭐ <span>${(typeof window !== 'undefined' && window.appState && window.appState.data) ? window.appState.data.stars : 0}</span></div>
+          <div class="ns-hud-badge" style="padding: 4px 10px; font-size: 0.85rem;">⚡ <span>${(typeof window !== 'undefined' && window.appState && window.appState.data) ? window.appState.data.xp : 0} XP</span></div>
         </div>
       </header>
     `;

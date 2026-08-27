@@ -2,13 +2,14 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
   <title>NovaStars × NVS Championship — Student Pilot (Internal Debug Entry)</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    body { background: #0F172A; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; overflow-x: hidden; }
-    #app-root { width: 100%; max-width: 640px; margin: 0 auto; min-height: 100vh; background: #F8FAFC; position: relative; overflow-x: hidden; box-sizing: border-box; padding-bottom: 90px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
-    #app-view-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
+    body { background: #0F172A; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    #app-root { width: 100%; max-width: 640px; margin: 0 auto; min-height: 100vh; min-height: 100dvh; background: #F8FAFC; position: relative; overflow-x: hidden; box-sizing: border-box; padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: 0 0 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+    #app-view-container { width: 100%; flex: 1; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; position: relative; box-sizing: border-box; min-width: 0; }
+    @media (max-width: 640px) { body { background: #F8FAFC; } #app-root { box-shadow: none; } }
   </style>
 </head>
 <body>

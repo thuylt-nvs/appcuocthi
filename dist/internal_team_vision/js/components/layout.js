@@ -6,7 +6,7 @@ const NSLayout = {
   renderHeader({ title, currentStage, totalStages, xp, stars, showProgress = true, onBack }) {
     const progressPercent = totalStages > 0 ? ((currentStage + 1) / totalStages) * 100 : 0;
     return `
-      <header class="ns-app-header">
+      <header class="ns-app-header" data-god-header="true" style="cursor: pointer;">
         ${onBack ? `<button class="ns-btn ns-btn-secondary" style="padding: 8px 14px; font-size: 1rem;" onclick="${onBack}">←</button>` : '<div></div>'}
         
         ${showProgress ? `

@@ -11,10 +11,16 @@ class DemoStudentController {
     this.currentBoostIdx = 0;
     this.telemetryRepo = typeof PilotTelemetryRepository !== 'undefined' ? new PilotTelemetryRepository() : null;
 
+    this.headerClickCount = 0;
+    this.lastHeaderClickTime = 0;
+    this.toastTimeout = null;
+    this._headerListenerAttached = false;
+
     // Anonymous Session State (Zero PII, State Persisted & Restored)
     this.pilotState = {
       sessionId: 'pilot_' + Math.random().toString(36).substring(2, 9),
       ageGroup: 'GRADE_4_5',
+      godMode: false,
       currentStepIndex: 0,
       currentExamIdx: 0,
       currentBoostIdx: 0,
@@ -97,6 +103,21 @@ class DemoStudentController {
     this.loadFromStorage();
     window.studentController = this;
     window.DEMO_SHOWCASE = false;
+
+    // Attach Global Header Click Listener for 5-click God Mode activation
+    if (typeof document !== 'undefined' && !this._headerListenerAttached) {
+      this._headerListenerAttached = true;
+      document.addEventListener('click', (e) => {
+        const target = e.target;
+        const headerEl = target.closest('header, .ns-app-header, .ns-exam-header, [data-god-header="true"], .ns-header-title, [data-view="student_welcome"] h1, [data-view="student_thank_you"] h2');
+        if (headerEl) {
+          if (!target.closest('button, a, input, select')) {
+            this.handleHeaderClick();
+          }
+        }
+      });
+    }
+
     this.renderCurrentStep();
     console.log('🚀 [StudentPilot] Student Controller initialized successfully.');
   }
@@ -338,6 +359,151 @@ class DemoStudentController {
     }
   }
 
+  /**
+   * Header Click Trigger for God Mode (5 clicks in 2.5s)
+   */
+  handleHeaderClick() {
+    const now = Date.now();
+    if (now - this.lastHeaderClickTime > 2500) {
+      this.headerClickCount = 1;
+    } else {
+      this.headerClickCount++;
+    }
+    this.lastHeaderClickTime = now;
+
+    if (this.headerClickCount >= 2 && this.headerClickCount < 5) {
+      this.showToast(`⚡ ${this.headerClickCount}/5 click header để kích hoạt God Mode...`, 800);
+    }
+
+    if (this.headerClickCount >= 5) {
+      this.headerClickCount = 0;
+      this.toggleGodMode();
+    }
+  }
+
+  toggleGodMode() {
+    this.setGodMode(!this.pilotState.godMode);
+  }
+
+  setGodMode(enabled) {
+    this.pilotState.godMode = !!enabled;
+    if (this.pilotState.godMode) {
+      if ((this.pilotState.xp || 0) < 999) this.pilotState.xp = 9999;
+      if ((this.pilotState.stars || 0) < 999) this.pilotState.stars = 9999;
+      this.pilotState.streak = Math.max(this.pilotState.streak || 1, 99);
+      
+      this.showToast('👑 GOD MODE ACTIVATED! Mở khóa tất cả bài & tính năng!', 3500);
+      
+      if (typeof ConfettiManager !== 'undefined' && ConfettiManager.triggerFullCelebration) {
+        ConfettiManager.triggerFullCelebration();
+      }
+    } else {
+      this.showToast('ℹ️ Đã tắt God Mode', 2000);
+    }
+    this.saveToStorage();
+    this.renderCurrentStep();
+  }
+
+  showToast(msg, duration = 3000) {
+    if (typeof document === 'undefined') return;
+    let toast = document.getElementById('ns-godmode-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'ns-godmode-toast';
+      toast.className = 'ns-godmode-toast';
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<span>👑</span> <span>${msg}</span>`;
+    toast.classList.add('active');
+
+    if (this.toastTimeout) clearTimeout(this.toastTimeout);
+    this.toastTimeout = setTimeout(() => {
+      if (toast) toast.classList.remove('active');
+    }, duration);
+  }
+
+  jumpToStep(stepIdx) {
+    this.goToStep(stepIdx);
+  }
+
+  jumpToExamQuestion(idx) {
+    const pool = this.examQuestions[this.pilotState.ageGroup] || this.examQuestions.GRADE_4_5;
+    if (idx >= 0 && idx < pool.length) {
+      this.currentExamIdx = idx;
+      this.pilotState.currentExamIdx = idx;
+      this.saveToStorage();
+      this.goToStep(3);
+    }
+  }
+
+  jumpToBoostQuestion(idx) {
+    const pool = this.boostQuestions[this.pilotState.ageGroup] || this.boostQuestions.GRADE_4_5;
+    if (idx >= 0 && idx < pool.length) {
+      this.currentBoostIdx = idx;
+      this.pilotState.currentBoostIdx = idx;
+      this.pilotState.boostFeedbackQuestionId = null;
+      this.pilotState.boostFeedbackIsCorrect = null;
+      this.saveToStorage();
+      this.goToStep(5);
+    }
+  }
+
+  setGodModeAgeGroup(ageKey) {
+    this.pilotState.ageGroup = ageKey;
+    this.currentExamIdx = 0;
+    this.currentBoostIdx = 0;
+    this.pilotState.currentExamIdx = 0;
+    this.pilotState.currentBoostIdx = 0;
+    this.saveToStorage();
+    this.showToast(`🎯 Đã đổi sang ${ageKey === 'GRADE_1_3' ? 'Khối 1–3' : 'Khối 4–5'}`, 2000);
+    this.renderCurrentStep();
+  }
+
+  autoSolveExam() {
+    const pool = this.examQuestions[this.pilotState.ageGroup] || this.examQuestions.GRADE_4_5;
+    pool.forEach(item => {
+      const qId = item.itemId || item.id;
+      const correctOpt = item.correctOptionId || 'opt_a';
+      this.pilotState.examAnswers[qId] = correctOpt;
+    });
+    this.pilotState.examScore = {
+      score: 100,
+      correctCount: pool.length,
+      totalCount: pool.length
+    };
+    this.showToast('✨ Auto-Solve: Hoàn thành 100/100 Điểm!', 2500);
+    this.goToStep(4); // S4 Practice Result
+  }
+
+  autoSolveBoost() {
+    const pool = this.boostQuestions[this.pilotState.ageGroup] || this.boostQuestions.GRADE_4_5;
+    pool.forEach(item => {
+      const qId = item.itemId || item.id;
+      const correctOpt = item.correctOptionId || 'opt_a';
+      this.pilotState.boostAnswers[qId] = correctOpt;
+    });
+    const earnedXP = pool.length * 6;
+    this.pilotState.boostCorrectCount = pool.length;
+    this.pilotState.boostXpEarned = earnedXP;
+    this.pilotState.xp = (this.pilotState.xp ?? 0) + earnedXP;
+    this.pilotState.stars = (this.pilotState.stars ?? 0) + 10;
+    this.pilotState.boostCompleted = true;
+    this.showToast(`✨ Auto-Boost: Nhận trọn vẹn +${earnedXP} XP & 10 Stars!`, 2500);
+    this.goToStep(6); // S6 Reward
+  }
+
+  autoFillFeedback() {
+    this.pilotState.feedback = {
+      q1: 5,
+      q2: 'Bài thi',
+      q3: 'Có!',
+      suggestion: 'Trải nghiệm tuyệt vời! God Mode mở khóa toàn bộ tính năng.'
+    };
+    this.saveToStorage();
+    this.showToast('✍️ Đã tự động điền đánh giá 5 sao!', 2000);
+    this.renderCurrentStep();
+  }
+
   setFeedbackRating(val) {
     this.pilotState.feedback.q1 = val;
     this.saveToStorage();
@@ -363,8 +529,8 @@ class DemoStudentController {
 
   submitFeedback() {
     const fb = this.pilotState.feedback;
-    if (fb.q1 === null || fb.q2 === null || fb.q3 === null) {
-      return; // Block submission until Q1, Q2, and Q3 are answered
+    if (!this.pilotState.godMode && (fb.q1 === null || fb.q2 === null || fb.q3 === null)) {
+      return; // Block submission until Q1, Q2, and Q3 are answered (unless in God Mode)
     }
 
     this.logOnce('feedback_submitted', 'feedback_submitted', this.pilotState.feedback);
@@ -376,15 +542,17 @@ class DemoStudentController {
     if (typeof sessionStorage !== 'undefined') {
       sessionStorage.removeItem(this.storageKey);
     }
+    const currentGodMode = this.pilotState.godMode;
     this.pilotState = {
       sessionId: 'pilot_' + Math.random().toString(36).substring(2, 9),
       ageGroup: 'GRADE_4_5',
+      godMode: currentGodMode,
       currentStepIndex: 0,
       currentExamIdx: 0,
       currentBoostIdx: 0,
-      xp: 0,
-      stars: 0,
-      streak: 1,
+      xp: currentGodMode ? 9999 : 0,
+      stars: currentGodMode ? 9999 : 0,
+      streak: currentGodMode ? 99 : 1,
       examAnswers: {},
       examScore: null,
       boostAnswers: {},
@@ -403,7 +571,7 @@ class DemoStudentController {
   }
 
   /**
-   * Telemetry-Free Renderer
+   * Telemetry-Free Renderer with God Mode Dock
    */
   renderCurrentStep() {
     const container = document.getElementById('app-view-container');
@@ -414,23 +582,23 @@ class DemoStudentController {
 
     switch (this.currentStepIndex) {
       case 0:
-        html = DemoStudentViews.renderWelcome();
+        html = DemoStudentViews.renderWelcome(this.pilotState);
         break;
       case 1:
         html = DemoStudentViews.renderHome(this.pilotState);
         break;
       case 2:
-        html = DemoStudentViews.renderChampionshipHome();
+        html = DemoStudentViews.renderChampionshipHome(this.pilotState);
         break;
       case 3:
         const pool = this.examQuestions[this.pilotState.ageGroup] || this.examQuestions.GRADE_4_5;
         const curQ = pool[this.currentExamIdx] || pool[0];
         this.assertPilotItemSafety(curQ);
         const shuffledOpts = this.getShuffledOptions(curQ);
-        html = DemoStudentViews.renderExamQuestion(curQ, this.currentExamIdx, pool.length, shuffledOpts);
+        html = DemoStudentViews.renderExamQuestion(curQ, this.currentExamIdx, pool.length, shuffledOpts, this.pilotState);
         break;
       case 4:
-        html = DemoStudentViews.renderPracticeResult(this.pilotState.examScore || { score: 80, correctCount: 4, totalCount: 5 });
+        html = DemoStudentViews.renderPracticeResult(this.pilotState.examScore || { score: 80, correctCount: 4, totalCount: 5 }, this.pilotState);
         break;
       case 5:
         const bPool = this.boostQuestions[this.pilotState.ageGroup] || this.boostQuestions.GRADE_4_5;
@@ -443,22 +611,26 @@ class DemoStudentController {
           fbState = { isCorrect: this.pilotState.boostFeedbackIsCorrect };
         }
 
-        html = DemoStudentViews.renderSkillBoostQuestion(boostQ, this.currentBoostIdx, bPool.length, fbState, shuffledBoostOpts);
+        html = DemoStudentViews.renderSkillBoostQuestion(boostQ, this.currentBoostIdx, bPool.length, fbState, shuffledBoostOpts, this.pilotState);
         break;
       case 6:
         html = DemoStudentViews.renderRewardMoment(this.pilotState);
         break;
       case 7:
-        html = DemoStudentViews.renderStudentJourney();
+        html = DemoStudentViews.renderStudentJourney(this.pilotState);
         break;
       case 8:
-        html = DemoStudentViews.renderStudentFeedback(this.pilotState.feedback);
+        html = DemoStudentViews.renderStudentFeedback(this.pilotState.feedback, this.pilotState);
         break;
       case 9:
-        html = DemoStudentViews.renderThankYou();
+        html = DemoStudentViews.renderThankYou(this.pilotState);
         break;
       default:
-        html = DemoStudentViews.renderWelcome();
+        html = DemoStudentViews.renderWelcome(this.pilotState);
+    }
+
+    if (this.pilotState.godMode && typeof DemoStudentViews.renderGodModeDock === 'function') {
+      html += DemoStudentViews.renderGodModeDock(this.pilotState, this.currentStepIndex, this.currentExamIdx, this.currentBoostIdx);
     }
 
     container.innerHTML = html;
