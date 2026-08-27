@@ -24,11 +24,6 @@ class AppController {
     if (this.isInitialized) return;
     this.isInitialized = true;
 
-    if (typeof window !== 'undefined' && window.location && window.location.search.includes('demo=showcase')) {
-      window.location.href = 'demo/vision_demo.html';
-      return;
-    }
-
     if (typeof document !== 'undefined') {
       this.container = document.getElementById('app-view-container');
     }

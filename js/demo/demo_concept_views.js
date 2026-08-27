@@ -378,11 +378,6 @@ const DemoConceptViews = {
               <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: #2563EB;">${streak} Ngày</div>
             </div>
             <div class="ns-card" style="padding: 10px; text-align: center;">
-              <div style="font-size: 0.75rem; color: #64748B; font-weight: 700;">BÀI THI HOÀN THÀNH</div>
-              <div style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: #10B981;">${completedExamsCount} Bài</div>
-            </div>
-          </div>
-
           <div class="ns-card">
             <h4 style="font-family: var(--font-display); font-size: 0.95rem; color: #1E293B; margin: 0 0 6px 0;">🎯 Trọng Tâm Rèn Luyện Tuần Này</h4>
             <p style="font-size: 0.85rem; color: #475569; font-weight: 700; line-height: 1.4; margin: 0;">
@@ -391,6 +386,59 @@ const DemoConceptViews = {
           </div>
 
         </div>
+      </div>
+    `;
+  },
+
+  /**
+   * Team-Only Final Discussion / Checkpoint Screen (Requirement 10)
+   */
+  renderTeamFeedback() {
+    return `
+      <div class="ns-view" data-view="concept_team_feedback" style="flex: 1; display: flex; flex-direction: column; width: 100%; box-sizing: border-box; background: linear-gradient(180deg, #0F172A 0%, #1E1B4B 100%); color: #FFF; padding: 14px; overflow-y: auto;">
+        <div style="background: rgba(139, 92, 246, 0.15); border: 2px solid #8B5CF6; border-radius: 14px; padding: 16px; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="font-size: 1.5rem;">💬</span>
+            <div>
+              <h3 style="font-family: var(--font-display); font-size: 1.15rem; color: #FDE047; margin: 0;">NOVASTARS TEAM ALIGNMENT CHECKPOINT</h3>
+              <span style="font-size: 0.75rem; background: #8B5CF6; color: #FFF; padding: 2px 6px; border-radius: 4px; font-weight: 800;">INTERNAL DISCUSSION ONLY</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: #E2E8F0; font-weight: 700; margin: 0 0 14px 0; line-height: 1.4;">
+            Dành cho đội ngũ NovaStars cùng thảo luận và thống nhất tầm nhìn sản phẩm sau khi xem trọn vẹn 12 bước trải nghiệm:
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; padding: 12px; border-radius: 10px;">
+              <div style="font-size: 0.88rem; font-weight: 800; color: #38BDF8; margin-bottom: 4px;">1. Phần nào trong vòng lặp cảm thấy mạnh mẽ nhất?</div>
+              <div style="font-size: 0.8rem; color: #94A3B8; font-weight: 700;">Test / Coach / Train / Reward / Journey / Competition</div>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; padding: 12px; border-radius: 10px;">
+              <div style="font-size: 0.88rem; font-weight: 800; color: #FBBF24; margin-bottom: 4px;">2. Phần nào khó hiểu nhất hoặc cần đơn giản hóa?</div>
+              <div style="font-size: 0.8rem; color: #94A3B8; font-weight: 700;">Góc nhìn của học sinh & phụ huynh khi trải nghiệm lần đầu</div>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; padding: 12px; border-radius: 10px;">
+              <div style="font-size: 0.88rem; font-weight: 800; color: #34D399; margin-bottom: 4px;">3. Yếu tố nào làm trẻ muốn quay lại học mỗi ngày?</div>
+              <div style="font-size: 0.8rem; color: #94A3B8; font-weight: 700;">Chuỗi streak, phần thưởng Stars/XP hay thử thách cá nhân?</div>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; padding: 12px; border-radius: 10px;">
+              <div style="font-size: 0.88rem; font-weight: 800; color: #EF4444; margin-bottom: 4px;">4. Tính năng nào tuyệt đối KHÔNG NÊN làm?</div>
+              <div style="font-size: 0.8rem; color: #94A3B8; font-weight: 700;">Ví dụ: thao túng Pay-to-win, gây áp lực điểm số gắt gao</div>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #8B5CF6; padding: 12px; border-radius: 10px;">
+              <div style="font-size: 0.88rem; font-weight: 800; color: #C4B5FD; margin-bottom: 4px;">5. Ý tưởng tương lai nào xứng đáng làm thử nghiệm tiếp theo?</div>
+              <div style="font-size: 0.8rem; color: #94A3B8; font-weight: 700;">Bảng xếp hạng năng lực, thử thách tốc độ hay báo cáo nâng cao cho Phụ huynh?</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="ns-btn ns-btn-primary" style="width: 100%; min-height: 48px; font-size: 1rem;" onclick="window.demoController.resetDemo()">
+          <span>🔄 QUAY LẠI TỪ ĐẦU (RESET DEMO)</span>
+        </button>
       </div>
     `;
   }

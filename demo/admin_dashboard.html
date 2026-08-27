@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaStars × NVS Championship — Admin Control Panel & Operations Dashboard</title>
+
+  <!-- Google Fonts & Design System CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background: #0F172A;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+      color: #F8FAFC;
+    }
+    #admin-root {
+      width: 100%;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Root Mount Container for Admin Dashboard -->
+  <div id="admin-root"></div>
+
+  <!-- Core & Telemetry Dependencies -->
+  <script src="../js/core/state.js"></script>
+  <script src="../js/core/nvs_competency.js"></script>
+  <script src="../js/demo/pilot_telemetry_repository.js"></script>
+
+  <!-- Question Pools & Data Fixtures -->
+  <script src="../js/demo/fixtures/pilot_exam_g13.js"></script>
+  <script src="../js/demo/fixtures/pilot_exam_g45.js"></script>
+  <script src="../js/demo/fixtures/pilot_skill_boost_g13.js"></script>
+  <script src="../js/demo/fixtures/pilot_skill_boost_g45.js"></script>
+
+  <!-- Admin Controller -->
+  <script src="../js/demo/demo_admin_controller.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const adminController = new DemoAdminController();
+      adminController.init();
+    });
+  </script>
+
+</body>
+</html>

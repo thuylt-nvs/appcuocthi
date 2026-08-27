@@ -31,7 +31,8 @@ const DemoPresenterPanel = {
     concept_leaderboard: "Tạo động lực thi đua lành mạnh mà không thao túng Pay-to-Win (chỉ tính XP từ 1 lượt luyện tập miễn phí/ngày).",
     concept_challenges: "Thử thách tốc độ giúp luyện phản xạ tự nhiên. Thử thách KHÔNG tạo lợi thế xếp hạng hay cộng điểm thi đấu chính thức NVS.",
     concept_premium_preview: "Chuyển đổi Premium đúng thời điểm học sinh có nhu cầu học tập cao nhất ('Hỏi Phụ Huynh').",
-    concept_parent_progress: "Học sinh là người học; Phụ huynh là người đồng hành, hỗ trợ, ra quyết định và chi trả."
+    concept_parent_progress: "Học sinh là người học; Phụ huynh là người đồng hành, hỗ trợ, ra quyết định và chi trả.",
+    concept_team_feedback: "Dành riêng cho đội ngũ NovaStars cùng thảo luận và thống nhất 5 câu hỏi định hướng sản phẩm."
   },
 
   /**
@@ -47,10 +48,13 @@ const DemoPresenterPanel = {
         
         <!-- Header Row: Classification Badge & Presenter Toggle -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <span style="background: #38BDF8; color: #0F172A; font-weight: 900; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px;">VISION DEMO v0.1</span>
             <span style="background: ${classif.badgeColor}; color: ${classif.textColor}; font-weight: 800; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px;">${classif.label}</span>
             <span style="font-size: 0.82rem; font-weight: 800; color: #FDE047;">${currentStepIndex + 1}/${steps.length}: ${currentStep.name}</span>
+            <a href="admin_dashboard.html" style="background: #E11D48; color: #FFF; text-decoration: none; font-weight: 900; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+              👑 OPEN ADMIN DASHBOARD ↗
+            </a>
           </div>
 
           <div style="display: flex; gap: 6px;">

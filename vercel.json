@@ -27,8 +27,8 @@
       "destination": "/demo/student_pilot.html"
     },
     {
-      "source": "/team",
-      "destination": "/demo/team_vision.html"
+      "source": "/admin",
+      "destination": "/demo/admin_dashboard.html"
     },
     {
       "source": "/debug",
