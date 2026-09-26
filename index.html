@@ -2,20 +2,179 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaStars × NVS Championship — Student Alpha v0.2.3B</title>
-  <script>
-    (function() {
-      var search = window.location.search || '';
-      window.location.replace('demo/student_pilot.html' + search);
-    })();
-  </script>
-  <meta http-equiv="refresh" content="0;url=demo/student_pilot.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>NovaStars Universe × NVS Championship 3D</title>
+  
+  <!-- Favicon & Touch Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭐</text></svg>">
+  <meta name="theme-color" content="#0B0F19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="css/app_3d.css">
 </head>
-<body style="background: #0F172A; color: #FDE047; font-family: 'Nunito', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
-  <div style="text-align: center;">
-    <h2 style="font-size: 1.5rem; margin-bottom: 8px;">🚀 NovaStars × NVS Championship v0.2.3B</h2>
-    <p style="color: #94A3B8; font-size: 1rem;">Đang chuyển hướng tới giao diện Học Sinh Trải Nghiệm (Student Pilot)...</p>
+<body>
+
+  <!-- Confetti Particle Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Main Viewport -->
+  <div id="app-viewport">
+
+    <!-- 3D Three.js Universe Container -->
+    <div id="three-canvas-container"></div>
+
+    <!-- Top HUD Bar -->
+    <header class="ns-hud-header">
+      <div class="ns-brand-pill" onclick="window.app.switchView('galaxy')">
+        <span class="mascot-icon">⭐</span>
+        <span class="brand-text">NOVASTARS 3D</span>
+      </div>
+
+      <div class="ns-hud-stats">
+        <div class="ns-stat-badge xp">
+          <span>⚡</span>
+          <span id="hud-xp-val">450</span>
+        </div>
+        <div class="ns-stat-badge stars">
+          <span>⭐</span>
+          <span id="hud-stars-val">18</span>
+        </div>
+        <div class="ns-stat-badge streak">
+          <span>🔥</span>
+          <span id="hud-streak-val">5</span>
+        </div>
+        <button id="btn-sound-toggle" class="ns-icon-btn" title="Bật/Tắt âm thanh">🔊</button>
+      </div>
+    </header>
+
+    <!-- 3D Quick Controls (Camera Angle Switcher) -->
+    <div id="3d-controls-overlay" class="ns-3d-controls-overlay">
+      <button id="cam-btn-overview" class="ns-cam-pill active" title="Toàn cảnh vũ trụ">
+        <span>🌌</span> Toàn Cảnh
+      </button>
+      <button id="cam-btn-close" class="ns-cam-pill" title="Cận cảnh hành tinh">
+        <span>🔍</span> Đến Hành Tinh
+      </button>
+    </div>
+
+    <!-- Interactive 3D Hint Banner -->
+    <div id="3d-hint-banner" class="ns-3d-hint-banner">
+      <span>👆</span> Vuốt xoay hoặc chạm vào hành tinh để khám phá
+    </div>
+
+    <!-- Mini-Game Touch Controls & In-Game HUD -->
+    <div id="minigame-touch-controls" class="ns-minigame-controls hidden">
+      <div style="position: absolute; top: -50px; left: 24px; right: 24px; display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); padding: 8px 18px; border-radius: var(--radius-full); border: 2px solid rgba(255,255,255,0.2);">
+        <div style="font-weight: 800; font-size: 0.95rem; color: #FACC15;">💎 Điểm: <span id="mg-score-val">0</span></div>
+        <div style="font-weight: 800; font-size: 0.95rem; color: #EF4444;"><span id="mg-shield-val">❤️❤️❤️</span></div>
+        <div style="font-weight: 800; font-size: 0.95rem; color: #38BDF8;">⏱️ <span id="mg-timer-val">45s</span></div>
+      </div>
+
+      <div class="ns-touch-dpad-left">
+        <button id="touch-btn-left" class="ns-touch-btn" aria-label="Sang trái">◀</button>
+      </div>
+      <div class="ns-touch-dpad-right">
+        <button id="touch-btn-right" class="ns-touch-btn" aria-label="Sang phải">▶</button>
+      </div>
+    </div>
+
+    <!-- Modal Backdrop -->
+    <div id="planet-modal-backdrop" class="ns-modal-backdrop"></div>
+
+    <!-- 3D Planet Focus Modal -->
+    <div id="planet-modal" class="ns-planet-modal">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span id="planet-modal-icon" style="font-size: 2.4rem;">🎯</span>
+          <div>
+            <h3 id="planet-modal-title" style="font-size: 1.25rem; font-weight: 900; color: #FFF; margin: 0;">Mục Đích & Giá Trị Sống</h3>
+            <span style="font-size: 0.8rem; font-weight: 800; color: #38BDF8;">Hành Tinh Năng Lực NVS</span>
+          </div>
+        </div>
+        <button id="planet-modal-close" class="ns-icon-btn" style="width: 32px; height: 32px; font-size: 0.9rem;">✕</button>
+      </div>
+
+      <p id="planet-modal-desc" style="font-size: 0.92rem; color: #CBD5E1; line-height: 1.5; margin-bottom: 18px;">
+        Mô tả hành tinh năng lực.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button id="planet-modal-btn-boost" class="ns-btn-3d ns-btn-primary" style="width: 100%;">
+          <span>⚡ Luyện Năng Lực Này (Skill Boost)</span>
+        </button>
+        <button id="planet-modal-btn-exam" class="ns-btn-3d ns-btn-gold" style="width: 100%;">
+          <span>🏆 Vào Đấu Trường NVS Championship</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Views Overlays -->
+    <!-- View: Exam -->
+    <div id="view-exam" class="ns-view-overlay hidden"></div>
+
+    <!-- View: Skill Boost -->
+    <div id="view-skill-boost" class="ns-view-overlay hidden"></div>
+
+    <!-- View: Mini-game Lobby -->
+    <div id="view-minigame-lobby" class="ns-view-overlay hidden"></div>
+
+    <!-- View: Profile & Radar Chart -->
+    <div id="view-profile" class="ns-view-overlay hidden"></div>
+
+    <!-- Floating Bottom Navigation Bar -->
+    <nav id="bottom-nav" class="ns-bottom-nav">
+      <button class="ns-nav-item active" data-view="galaxy">
+        <span class="nav-icon">🌌</span>
+        <span class="nav-label">Vũ Trụ 3D</span>
+      </button>
+      <button class="ns-nav-item" data-view="championship">
+        <span class="nav-icon">🏆</span>
+        <span class="nav-label">Đấu Trường</span>
+      </button>
+      <button class="ns-nav-item" data-view="skill_boost">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-label">Rèn Luyện</span>
+      </button>
+      <button class="ns-nav-item" data-view="minigame">
+        <span class="nav-icon">🛸</span>
+        <span class="nav-label">Trạm Bay 3D</span>
+      </button>
+      <button class="ns-nav-item" data-view="profile">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">Hồ Sơ & Radar</span>
+      </button>
+    </nav>
+
   </div>
+
+  <!-- Core Libraries: Local Offline Three.js with CDN Fallback -->
+  <script src="lib/three.min.js"></script>
+  <script>
+    if (typeof THREE === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+    }
+  </script>
+
+  <!-- Competency Domain Data & Question Fixtures -->
+  <script src="js/core/nvs_competency.js"></script>
+  <script src="js/demo/fixtures/pilot_exam_g13.js"></script>
+  <script src="js/demo/fixtures/pilot_exam_g45.js"></script>
+  <script src="js/demo/fixtures/pilot_skill_boost_g13.js"></script>
+  <script src="js/demo/fixtures/pilot_skill_boost_g45.js"></script>
+
+  <!-- Sound Engine & Radar Chart Component -->
+  <script src="js/core/synth_audio.js"></script>
+  <script src="js/components/radar_chart.js"></script>
+
+  <!-- 3D Engines & Controls -->
+  <script src="js/3d/touch_controls.js"></script>
+  <script src="js/3d/universe_scene.js"></script>
+  <script src="js/3d/star_collector_game.js"></script>
+
+  <!-- Master App Controller -->
+  <script src="js/app_universe.js"></script>
+
 </body>
 </html>
