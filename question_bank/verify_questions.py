@@ -61,7 +61,7 @@ def verify_markdown_file(file_path):
         return True
 
 def main():
-    bank_dir = "/Users/thuy/Documents/apptieuhoc/question_bank"
+    bank_dir = os.path.dirname(os.path.abspath(__file__))
     files = [
         "group1_self_care_safety.md",
         "group2_self_management.md",

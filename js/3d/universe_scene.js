@@ -26,8 +26,8 @@ class UniverseSceneEngine {
     this.planetConfigs = [
       {
         id: 'NL1',
-        name: 'Mục Đích & Giá Trị Sống',
-        shortName: 'Mục Đích Sống',
+        name: 'Mục Đích Sống',
+        shortName: 'Mục Đích',
         color: 0xEC4899,
         hex: '#EC4899',
         icon: '🎯',
@@ -37,12 +37,12 @@ class UniverseSceneEngine {
         rotationSpeed: 0.015,
         angle: 0.2,
         geometryType: 'octahedron',
-        desc: 'Xác định mục đích cá nhân, giá trị đạo đức và kỷ luật bản thân.'
+        desc: 'Xác định mục đích, giá trị sống và rèn luyện tính tự giác.'
       },
       {
         id: 'NL2',
-        name: 'Tư Duy & Học Tập Suốt Đời',
-        shortName: 'Tư Duy Logic',
+        name: 'Tư Duy & Tự Học',
+        shortName: 'Tư Duy',
         color: 0x3B82F6,
         hex: '#3B82F6',
         icon: '🧩',
@@ -52,12 +52,12 @@ class UniverseSceneEngine {
         rotationSpeed: 0.018,
         angle: 1.1,
         geometryType: 'dodecahedron',
-        desc: 'Rèn luyện tư duy logic, phản biện, phân tích và chủ động học tập.'
+        desc: 'Rèn luyện tư duy logic, phản biện và thói quen chủ động học tập.'
       },
       {
         id: 'NL3',
-        name: 'Trí Tuệ Cảm Xúc & Kết Nối',
-        shortName: 'Trí Tuệ Cảm Xúc',
+        name: 'Trí Tuệ Cảm Xúc',
+        shortName: 'Cảm Xúc',
         color: 0x10B981,
         hex: '#10B981',
         icon: '❤️',
@@ -67,12 +67,12 @@ class UniverseSceneEngine {
         rotationSpeed: 0.014,
         angle: 2.0,
         geometryType: 'icosahedron',
-        desc: 'Thấu hiểu cảm xúc cá nhân, làm chủ tâm trí và gắn kết bạn bè.'
+        desc: 'Thấu hiểu cảm xúc bản thân, làm chủ tâm trí và hòa đồng cùng bạn bè.'
       },
       {
         id: 'NL4',
-        name: 'Giao Tiếp & Thuyết Phục',
-        shortName: 'Giao Tiếp & Cảm Hứng',
+        name: 'Giao Tiếp Tự Tin',
+        shortName: 'Giao Tiếp',
         color: 0xF97316,
         hex: '#F97316',
         icon: '🗣️',
@@ -82,12 +82,12 @@ class UniverseSceneEngine {
         rotationSpeed: 0.02,
         angle: 3.1,
         geometryType: 'torusKnot',
-        desc: 'Lắng nghe tích cực, tự tin diễn đạt và truyền năng lượng tích cực.'
+        desc: 'Lắng nghe tích cực, tự tin phát biểu và truyền cảm hứng.'
       },
       {
         id: 'NL5',
-        name: 'Công Dân Toàn Cầu & Xã Hội',
-        shortName: 'Công Dân Toàn Cầu',
+        name: 'Công Dân Toàn Cầu',
+        shortName: 'Toàn Cầu',
         color: 0x06B6D4,
         hex: '#06B6D4',
         icon: '🌍',
@@ -97,12 +97,12 @@ class UniverseSceneEngine {
         rotationSpeed: 0.012,
         angle: 4.2,
         geometryType: 'sphere',
-        desc: 'Tôn trọng văn hóa đa dạng, bảo vệ hành tinh và hỗ trợ cộng đồng.'
+        desc: 'Tôn trọng sự đa dạng, bảo vệ môi trường và trách nhiệm xã hội.'
       },
       {
         id: 'NL6',
-        name: 'Hành Động & Dám Thử Thách',
-        shortName: 'Dũng Cảm Hành Động',
+        name: 'Dũng Cảm Hành Động',
+        shortName: 'Hành Động',
         color: 0xF59E0B,
         hex: '#F59E0B',
         icon: '🚀',
@@ -112,12 +112,12 @@ class UniverseSceneEngine {
         rotationSpeed: 0.022,
         angle: 5.1,
         geometryType: 'starGeo',
-        desc: 'Dũng cảm bước khỏi vùng an toàn, tổ chức thực thi và kiên trì theo đuổi.'
+        desc: 'Tự tin bước khỏi vùng an toàn, dám thử điều mới và kiên trì.'
       },
       {
         id: 'NL7',
-        name: 'Kỹ Năng Công Nghệ & AI',
-        shortName: 'Công Nghệ & AI',
+        name: 'Công Nghệ & AI',
+        shortName: 'Công Nghệ',
         color: 0x8B5CF6,
         hex: '#8B5CF6',
         icon: '💻',
@@ -127,7 +127,7 @@ class UniverseSceneEngine {
         rotationSpeed: 0.016,
         angle: 6.0,
         geometryType: 'cyberPyramid',
-        desc: 'Ứng dụng công nghệ và trí tuệ nhân tạo an toàn, sáng tạo và thông minh.'
+        desc: 'Sử dụng công nghệ và trí tuệ nhân tạo an toàn, sáng tạo.'
       }
     ];
 
@@ -312,10 +312,10 @@ class UniverseSceneEngine {
     coreGroup.userData = {
       planetData: {
         id: 'BASE',
-        name: 'Trạm Vũ Trụ Trung Tâm NovaStars Base',
-        shortName: 'NovaStars Base',
+        name: 'Trạm Trung Tâm',
+        shortName: 'Trung Tâm',
         icon: '⭐',
-        desc: 'Trung tâm kết nối 7 hành tinh năng lực vũ trụ NVS.',
+        desc: 'Nơi kết nối các hành tinh năng lực trong vũ trụ.',
         isBase: true
       }
     };

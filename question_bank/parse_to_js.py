@@ -95,7 +95,7 @@ def parse_markdown_file(file_path, group_name):
     return questions
 
 def main():
-    bank_dir = "/Users/thuy/Documents/apptieuhoc/question_bank"
+    bank_dir = os.path.dirname(os.path.abspath(__file__))
     groups = {
         "group1_self_care_safety.md": "Tự chăm sóc & An toàn cá nhân",
         "group2_self_management.md": "Nhận thức & Quản lý bản thân",

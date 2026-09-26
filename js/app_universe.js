@@ -261,7 +261,7 @@ class NovaStarsApp {
 
     el.innerHTML = `
       <div class="ns-view-header">
-        <h2 class="ns-view-title"><span>🏆</span> Đấu Trường NVS Championship</h2>
+        <h2 class="ns-view-title"><span>🏆</span> Đấu Trường NVS</h2>
         <button class="ns-icon-btn" onclick="window.app.switchView('galaxy')">✕</button>
       </div>
 
@@ -269,8 +269,8 @@ class NovaStarsApp {
         <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
           <div style="font-size: 2.8rem;">🌟</div>
           <div>
-            <h3 style="font-size: 1.25rem; font-weight: 900; color: #FDE047;">Giải Vô Địch Năng Lực 2026</h3>
-            <p style="font-size: 0.9rem; color: #E0E7FF; font-weight: 700;">Đấu trường thử thách bản lĩnh học sinh toàn diện</p>
+            <h3 style="font-size: 1.25rem; font-weight: 900; color: #FDE047;">Đấu Trường Năng Lực</h3>
+            <p style="font-size: 0.9rem; color: #E0E7FF; font-weight: 700;">Thử thách bản lĩnh và kỹ năng sống</p>
           </div>
         </div>
         <p style="font-size: 0.88rem; color: #CBD5E1; line-height: 1.5; margin-bottom: 16px;">
@@ -541,12 +541,12 @@ class NovaStarsApp {
 
     el.innerHTML = `
       <div class="ns-view-header">
-        <h2 class="ns-view-title"><span>⚡</span> Trạm Rèn Luyện Skill Boost</h2>
+        <h2 class="ns-view-title"><span>⚡</span> Luyện Kỹ Năng</h2>
         <button class="ns-icon-btn" onclick="window.app.switchView('galaxy')">✕</button>
       </div>
 
       <p style="font-size: 0.92rem; color: #CBD5E1; margin-bottom: 16px; font-weight: 700;">
-        Chọn 1 trong 7 hành tinh năng lực để rèn luyện phản xạ và nhận thêm Sao Năng Lượng:
+        Chọn 1 kỹ năng để luyện tập và nhận thêm Sao:
       </p>
 
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -599,8 +599,8 @@ class NovaStarsApp {
     el.innerHTML = `
       <div class="ns-view-header">
         <div>
-          <span style="font-size: 0.8rem; font-weight: 800; color: #FACC15;">SKILL BOOST ${sb.currentIndex + 1}/${sb.questions.length}</span>
-          <h3 style="font-size: 1.15rem; font-weight: 900; color: #FFF;">${comp ? comp.officialNameVi : 'Rèn Luyện Năng Lực'}</h3>
+          <span style="font-size: 0.8rem; font-weight: 800; color: #FACC15;">CÂU HỎI ${sb.currentIndex + 1}/${sb.questions.length}</span>
+          <h3 style="font-size: 1.15rem; font-weight: 900; color: #FFF;">${comp ? comp.officialNameVi : 'Luyện Kỹ Năng'}</h3>
         </div>
         <button class="ns-icon-btn" onclick="window.app.switchView('skill_boost')">✕</button>
       </div>
@@ -679,15 +679,15 @@ class NovaStarsApp {
 
     el.innerHTML = `
       <div class="ns-view-header">
-        <h2 class="ns-view-title"><span>🚀</span> Trạm Chiến Binh Ngôi Sao 3D</h2>
+        <h2 class="ns-view-title"><span>🚀</span> Phi Thuyền Sao 3D</h2>
         <button class="ns-icon-btn" onclick="window.app.switchView('galaxy')">✕</button>
       </div>
 
       <div class="ns-card" style="background: linear-gradient(135deg, rgba(30, 27, 75, 0.9), rgba(59, 130, 246, 0.4)); border-color: #38BDF8;">
         <div style="text-align: center; margin-bottom: 16px;">
           <div style="font-size: 3.5rem;" class="animate-bounce">🛸</div>
-          <h3 style="font-size: 1.35rem; font-weight: 900; color: #FDE047;">Star Collector 3D</h3>
-          <p style="font-size: 0.9rem; color: #CBD5E1; font-weight: 700;">Lái Tàu Sao Nova Thu Thập 7 Tinh Thể Năng Lượng</p>
+          <h3 style="font-size: 1.35rem; font-weight: 900; color: #FDE047;">Phi Thuyền Sao 3D</h3>
+          <p style="font-size: 0.9rem; color: #CBD5E1; font-weight: 700;">Thu thập sao năng lượng và né thiên thạch</p>
         </div>
 
         <p style="font-size: 0.88rem; color: #E2E8F0; line-height: 1.5; margin-bottom: 16px;">
@@ -695,7 +695,7 @@ class NovaStarsApp {
         </p>
 
         <button class="ns-btn-3d ns-btn-gold" style="width: 100%; font-size: 1.1rem; padding: 14px;" onclick="window.app.startMiniGame()">
-          <span>Khởi Động Phi Thuyền Ngay! 🛸</span>
+          <span>Bắt Đầu Bay! 🛸</span>
         </button>
       </div>
     `;
@@ -744,7 +744,7 @@ class NovaStarsApp {
             <span>Chơi Lại Vòng Nữa 🔄</span>
           </button>
           <button class="ns-btn-3d ns-btn-outline" style="width: 100%;" onclick="window.app.switchView('galaxy')">
-            <span>Trở Về Bản Đồ Vũ Trụ 🌌</span>
+            <span>Về Vũ Trụ 🌌</span>
           </button>
         </div>
       `;
@@ -761,7 +761,7 @@ class NovaStarsApp {
 
     el.innerHTML = `
       <div class="ns-view-header">
-        <h2 class="ns-view-title"><span>👤</span> Hồ Sơ Anh Hùng & Năng Lực</h2>
+        <h2 class="ns-view-title"><span>👤</span> Hồ Sơ Của Bé</h2>
         <button class="ns-icon-btn" onclick="window.app.switchView('galaxy')">✕</button>
       </div>
 
@@ -781,7 +781,7 @@ class NovaStarsApp {
       <!-- Radar Chart Card -->
       <div class="ns-card">
         <h4 style="font-size: 1.1rem; font-weight: 800; color: #38BDF8; margin-bottom: 14px; text-align: center;">
-          📊 Biểu Đồ 7 Năng Lực Cốt Lõi NVS
+          📊 Biểu Đồ 7 Năng Lực NVS
         </h4>
         <div class="ns-radar-container">
           <canvas id="nvs-radar-canvas" width="340" height="340" style="width: 320px; height: 320px;"></canvas>
