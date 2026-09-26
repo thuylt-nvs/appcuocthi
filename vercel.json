@@ -20,7 +20,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/demo/student_pilot.html"
+      "destination": "/index.html"
     },
     {
       "source": "/student",
