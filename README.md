@@ -1,23 +1,17 @@
-# App Cuộc Thi — NovaStars × NVS Championship (v0.2.3B Student Alpha)
+# NovaStars 3D — Đấu Trường Năng Lực Tiểu Học NVS
 
-Nền tảng học tập kỹ năng sống và Đấu Trường Năng Lực Học Sinh Tiểu Học (Khối 1–5), lấy cảm hứng từ game phiêu lưu giáo dục.
+Nền tảng học tập kỹ năng sống và Đấu Trường Năng Lực Học Sinh Tiểu Học (Khối 1–5), tích hợp đồ họa không gian vũ trụ Three.js 3D tối ưu cho điện thoại, máy tính bảng và máy tính.
 
-## 🚀 Tính Năng Nổi Bật (v0.2.3B Release)
+## 🌐 Tên Miền Chính Thức (Live on Vercel)
 
-- 👑 **Admin Operations Control Panel (`demo/admin_dashboard.html`)**: Bảng điều khiển quản trị BTC theo dõi dữ liệu Telemetry real-time, cấu hình cuộc thi & ngân hàng câu hỏi.
-- 🎓 **Student Pilot App (`demo/student_pilot.html`)**: Trải nghiệm bài thi luyện tập 5 câu hỏi và Skill Boost 3 câu hỏi cho 2 nhóm tuổi (Khối 1–3 & Khối 4–5).
-- ⚡ **Khung Năng Lực Chuẩn NVS (NL1–NL7)**: Tích hợp 7 năng lực cốt lõi (Mục đích sống, Học tập suốt đời, Trí tuệ cảm xúc, Giao tiếp truyền cảm hứng, Tinh thần công dân toàn cầu, Hành động dám thử, Kỹ năng công nghệ & AI).
-- 🎨 **Thiết Kế Chuẩn Tiếng Việt (Nunito Font System)**: Hiển thị 100% tiếng Việt có dấu chuẩn nét, bo tròn mịn màng, thân thiện với trẻ em.
-- ⚡ **Vercel Deploy Ready**: Tích hợp sẵn `vercel.json` điều hướng trang chủ tự động vào `demo/student_pilot.html`.
+👉 **Trang chủ WebApp 3D**: [https://appcuocthi.vercel.app](https://appcuocthi.vercel.app)
 
-## 📂 Đường Dẫn Chạy Ứng Dụng (Demo Links)
+## 🚀 Tính Năng Nổi Bật
 
-- 👑 **Bảng Điều Khiển Admin BTC**: [`demo/admin_dashboard.html`](demo/admin_dashboard.html)
-- 🎓 **Bản Học Sinh Trải Nghiệm**: [`demo/student_pilot.html`](demo/student_pilot.html)
-- 🛠️ **Bản Debug Nội Bộ**: [`demo/student_pilot_debug.html`](demo/student_pilot_debug.html)
+- 🌌 **Vũ Trụ 3D Three.js**: Khám phá 7 Hành Tinh Năng Lực NVS (NL1–NL7) và phi thuyền Sao Nova 3D với cử chỉ chạm vuốt mượt mà.
+- 🏆 **Đấu Trường NVS**: Làm bài thi trắc nghiệm tình huống chuẩn sư phạm NVS cho Khối 1–3 và Khối 4–5.
+- ⚡ **Luyện Kỹ Năng (Skill Boost)**: Rèn luyện phản xạ từng nhóm năng lực trọng tâm.
+- 🛸 **Phi Thuyền Sao 3D**: Mini-game không gian 3D thu thập tinh thể năng lượng và né thiên thạch.
+- 📊 **Biểu Đồ Radar 7 Chiều**: Đánh giá trực quan mức độ phát triển năng lực của bé trên Canvas Retina.
+- 👑 **Bảng Điều Khiển Admin BTC**: [`demo/admin_dashboard.html`](demo/admin_dashboard.html) theo dõi dữ liệu Telemetry thời gian thực.
 
-## 🌐 Deploy Lên Vercel
-
-1. Đăng nhập [Vercel Dashboard](https://vercel.com/dashboard).
-2. Import repository **`thuylt-nvs/appcuocthi`**.
-3. Bấm **Deploy**. File `vercel.json` sẽ tự động cấu hình ứng dụng chạy mượt mà trên Vercel!
