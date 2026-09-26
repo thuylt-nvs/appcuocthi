@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "novastars-3d",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
