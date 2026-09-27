@@ -36,7 +36,7 @@ flowchart TD
 
     subgraph ClientRuntimes["CLIENT RUNTIMES (Tầng Thực Thi)"]
         direction LR
-        Web["Web Championship Alpha<br/>(demo/student_pilot.html, demo/admin_dashboard.html, js/)"]
+        Web["Web 3D & Championship Alpha<br/>(index.html - Live Vercel, demo/, js/)"]
         Flutter["Flutter Mobile App<br/>(lib/features/ftue, lib/features/lesson, lib/features/map)"]
     end
 
