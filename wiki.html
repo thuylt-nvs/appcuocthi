@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaStars Wiki — Hệ Thống Tri Thức & Trạm Ngữ Cảnh AI Agent</title>
+  <meta name="description" content="Hệ thống Wiki tài liệu kỹ thuật và Trạm Ngữ cảnh AI Agent (Root Context Hub) chuẩn phong cách Andrej Karpathy cho NovaStars x NVS Championship.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20width=%22100%22%20height=%22100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+  
+  <!-- Google Fonts: Nunito & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Markdown & Syntax Highlighting CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-powershell.min.js"></script>
+
+  <!-- Pre-compiled Wiki Data Bundle -->
+  <script src="js/data/wiki_data.js"></script>
+
+  <style>
+    :root {
+      --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+      
+      /* Light Mode */
+      --bg-page: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: #F1F5F9;
+      --bg-code: #0F172A;
+      --border-subtle: #E2E8F0;
+      --border-hover: #CBD5E1;
+      
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-soft: #94A3B8;
+      
+      --accent-primary: #0284C7;
+      --accent-secondary: #8B5CF6;
+      --accent-glow: rgba(2, 132, 199, 0.12);
+      
+      --sidebar-width: 280px;
+      --toc-width: 240px;
+      --header-height: 64px;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0B0F19;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1F2937;
+      --bg-code: #030712;
+      --border-subtle: #1E293B;
+      --border-hover: #334155;
+      
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-soft: #64748B;
+      
+      --accent-primary: #38BDF8;
+      --accent-secondary: #A78BFA;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.68;
+      transition: background-color 0.25s, color 0.25s;
+      overflow-x: hidden;
+    }
+
+    /* Top Sticky Header */
+    header.wiki-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--header-height);
+      background-color: rgba(var(--bg-surface), 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.15), rgba(139, 92, 246, 0.15));
+      color: var(--accent-primary);
+      border: 1px solid rgba(2, 132, 199, 0.25);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--text-muted);
+      background-color: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-action:hover {
+      color: var(--text-main);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary-action {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: #FFFFFF !important;
+      border: none;
+    }
+
+    .btn-primary-action:hover {
+      opacity: 0.92;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    /* Layout Container */
+    .wiki-container {
+      display: flex;
+      max-width: 1540px;
+      margin: 0 auto;
+      min-height: calc(100vh - var(--header-height));
+    }
+
+    /* Left Sidebar */
+    aside.wiki-sidebar {
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      border-right: 1px solid var(--border-subtle);
+      background-color: var(--bg-surface);
+      height: calc(100vh - var(--header-height));
+      position: sticky;
+      top: var(--header-height);
+      overflow-y: auto;
+      padding: 1.25rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 0.75rem 0.5rem 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      pointer-events: none;
+    }
+
+    .nav-group-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-soft);
+      padding: 0.4rem 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .nav-item-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .nav-item-link:hover {
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-main);
+    }
+
+    .nav-item-link.active {
+      background-color: var(--accent-glow);
+      color: var(--accent-primary);
+      font-weight: 700;
+      border-left: 3px solid var(--accent-primary);
+      border-radius: 4px 8px 8px 4px;
+    }
+
+    /* Main Article Area */
+    main.wiki-main {
+      flex: 1;
+      min-width: 0;
+      padding: 2.5rem 3.5rem;
+      background-color: var(--bg-page);
+    }
+
+    .breadcrumb-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb-bar a {
+      color: var(--text-soft);
+      text-decoration: none;
+    }
+
+    .breadcrumb-bar a:hover {
+      color: var(--accent-primary);
+    }
+
+    /* Markdown Styling */
+    .markdown-body {
+      color: var(--text-main);
+      font-size: 1.02rem;
+    }
+
+    .markdown-body h1 {
+      font-size: 2.1rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      line-height: 1.25;
+      color: var(--text-main);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .markdown-body h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+      scroll-margin-top: 80px;
+    }
+
+    .markdown-body h3 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+      scroll-margin-top: 80px;
+    }
+
+    .markdown-body p {
+      margin-bottom: 1.15rem;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .markdown-body li {
+      margin-bottom: 0.35rem;
+    }
+
+    .markdown-body blockquote {
+      border-left: 4px solid var(--accent-primary);
+      background-color: var(--bg-surface);
+      padding: 0.85rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.25rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.92rem;
+      background-color: var(--bg-surface);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .markdown-body th {
+      background-color: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-weight: 800;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .markdown-body td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+
+    .markdown-body tr:last-child td {
+      border-bottom: none;
+    }
+
+    .markdown-body code:not(pre code) {
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+      background-color: var(--bg-surface-elevated);
+      color: var(--accent-primary);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Code Block Box */
+    .code-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: var(--bg-code);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.4rem 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+
+    .btn-copy-code {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #CBD5E1;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-code:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+    }
+
+    .markdown-body pre {
+      margin: 0;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* Mermaid Container */
+    .mermaid-box {
+      margin: 1.75rem 0;
+      padding: 1.5rem;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    /* Right TOC (On this page) */
+    aside.wiki-toc {
+      width: var(--toc-width);
+      flex-shrink: 0;
+      position: sticky;
+      top: var(--header-height);
+      height: calc(100vh - var(--header-height));
+      padding: 2rem 1rem;
+      overflow-y: auto;
+      display: block;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-soft);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      border-left: 1px solid var(--border-subtle);
+      padding-left: 0.6rem;
+    }
+
+    .toc-link {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: block;
+      line-height: 1.4;
+      transition: color 0.15s;
+    }
+
+    .toc-link:hover {
+      color: var(--accent-primary);
+    }
+
+    .toc-link.toc-h3 {
+      padding-left: 0.75rem;
+      font-size: 0.78rem;
+    }
+
+    /* Page Navigation Bottom */
+    .page-footer-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .nav-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      text-decoration: none;
+      color: var(--text-main);
+      width: 48%;
+      transition: all 0.2s;
+    }
+
+    .nav-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px var(--accent-glow);
+    }
+
+    .nav-card-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      text-transform: uppercase;
+    }
+
+    .nav-card-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+    }
+
+    /* Mobile Drawer */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    @media (max-width: 1180px) {
+      aside.wiki-toc {
+        display: none;
+      }
+      main.wiki-main {
+        padding: 2rem 2rem;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      aside.wiki-sidebar {
+        position: fixed;
+        left: -100%;
+        top: var(--header-height);
+        bottom: 0;
+        z-index: 60;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+        transition: left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      aside.wiki-sidebar.open {
+        left: 0;
+      }
+      main.wiki-main {
+        padding: 1.5rem 1rem;
+      }
+      .brand-badge {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Top Navigation Header -->
+  <header class="wiki-header">
+    <div class="header-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Mở menu">☰</button>
+      <a href="wiki.html#00_index" class="brand-title">
+        <span>🌌</span>
+        <span>NovaStars Wiki</span>
+        <span class="brand-badge">Andrej Karpathy Style</span>
+      </a>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-action" id="themeToggleBtn" title="Chuyển chế độ Sáng/Tối">
+        <span id="themeIcon">🌙</span>
+      </button>
+      <a href="index.html" class="btn-action btn-primary-action" title="Quay lại WebApp 3D">
+        <span>🚀</span>
+        <span>WebApp 3D</span>
+      </a>
+      <a href="https://github.com/thuylt-nvs/appcuocthi" target="_blank" class="btn-action" title="Kho mã nguồn GitHub">
+        <span>🐙</span>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="wiki-container">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="wiki-sidebar" id="wikiSidebar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm nhanh tài liệu..." autocomplete="off">
+      </div>
+
+      <nav id="sidebarNav"></nav>
+    </aside>
+
+    <!-- Center Article Area -->
+    <main class="wiki-main">
+      <div class="breadcrumb-bar" id="breadcrumbBar">
+        <a href="wiki.html#00_index">Wiki</a>
+        <span>/</span>
+        <span id="currentGroupLabel">Tổng Quan</span>
+        <span>/</span>
+        <span id="currentDocLabel">00. Mục Lục</span>
+      </div>
+
+      <article class="markdown-body" id="articleContent">
+        <!-- Rendered markdown inserted dynamically -->
+      </article>
+
+      <!-- Bottom Next/Previous Links -->
+      <footer class="page-footer-nav" id="pageFooterNav">
+        <a href="#" class="nav-card" id="prevDocLink" style="visibility: hidden;">
+          <span class="nav-card-label">← Bài trước</span>
+          <span class="nav-card-title" id="prevDocTitle">...</span>
+        </a>
+        <a href="#" class="nav-card" id="nextDocLink" style="visibility: hidden; margin-left: auto; text-align: right;">
+          <span class="nav-card-label">Bài tiếp theo →</span>
+          <span class="nav-card-title" id="nextDocTitle">...</span>
+        </a>
+      </footer>
+    </main>
+
+    <!-- Right Table of Contents (On this page) -->
+    <aside class="wiki-toc">
+      <div class="toc-title">Mục Lục Bài Viết</div>
+      <nav id="tocNav" class="toc-list"></nav>
+    </aside>
+
+  </div>
+
+  <script>
+    // Initialize Mermaid
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Nunito, sans-serif'
+    });
+
+    let currentDocId = '00_index';
+    const docs = (window.WIKI_DATA && window.WIKI_DATA.documents) ? window.WIKI_DATA.documents : [];
+
+    // Grouping structure
+    const groups = ['Tổng Quan', 'Domain Core', 'Động Cơ & Dữ Liệu', 'Quy Chuẩn & Vận Hành'];
+
+    // Render Sidebar Navigation
+    function renderSidebar(filteredDocs = docs) {
+      const navContainer = document.getElementById('sidebarNav');
+      navContainer.innerHTML = '';
+
+      groups.forEach(groupName => {
+        const groupItems = filteredDocs.filter(d => d.group === groupName);
+        if (groupItems.length === 0) return;
+
+        const groupHeader = document.createElement('div');
+        groupHeader.className = 'nav-group-title';
+        groupHeader.textContent = groupName;
+        navContainer.appendChild(groupHeader);
+
+        const ul = document.createElement('ul');
+        ul.className = 'nav-list';
+
+        groupItems.forEach(doc => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.className = `nav-item-link ${doc.id === currentDocId ? 'active' : ''}`;
+          a.href = `#${doc.id}`;
+          a.innerHTML = `<span>${doc.icon}</span> <span>${doc.title}</span>`;
+          a.addEventListener('click', (e) => {
+            // Close mobile drawer on item click
+            document.getElementById('wikiSidebar').classList.remove('open');
+          });
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+
+        navContainer.appendChild(ul);
+      });
+    }
+
+    // Custom renderer for marked
+    const renderer = new marked.Renderer();
+
+    // Render code blocks with header and copy button
+    renderer.code = function(code, lang) {
+      const validLang = lang || 'text';
+      if (validLang === 'mermaid') {
+        return `<div class="mermaid-box"><pre class="mermaid">${code}</pre></div>`;
+      }
+
+      let highlighted = code;
+      if (Prism && Prism.languages[validLang]) {
+        try {
+          highlighted = Prism.highlight(code, Prism.languages[validLang], validLang);
+        } catch (e) {
+          highlighted = code;
+        }
+      }
+
+      const escapedCode = encodeURIComponent(code);
+
+      return `
+        <div class="code-container">
+          <div class="code-header">
+            <span>${validLang}</span>
+            <button class="btn-copy-code" onclick="copyCode(this, '${escapedCode}')">
+              <span>📋</span> Copy
+            </button>
+          </div>
+          <pre><code class="language-${validLang}">${highlighted}</code></pre>
+        </div>
+      `;
+    };
+
+    marked.setOptions({
+      renderer: renderer,
+      gfm: true,
+      breaks: false
+    });
+
+    // Copy Code helper
+    window.copyCode = function(button, encodedText) {
+      const text = decodeURIComponent(encodedText);
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHtml = button.innerHTML;
+        button.innerHTML = '<span>✅</span> Đã chép!';
+        setTimeout(() => {
+          button.innerHTML = originalHtml;
+        }, 2000);
+      });
+    };
+
+    // Load and Render Document
+    function loadDoc(docId) {
+      const doc = docs.find(d => d.id === docId) || docs[0];
+      if (!doc) return;
+
+      currentDocId = doc.id;
+      window.location.hash = doc.id;
+
+      // Update Breadcrumbs
+      document.getElementById('currentGroupLabel').textContent = doc.group;
+      document.getElementById('currentDocLabel').textContent = doc.title;
+
+      // Render Markdown
+      const htmlContent = marked.parse(doc.content);
+      const articleEl = document.getElementById('articleContent');
+      articleEl.innerHTML = htmlContent;
+
+      // Render Mermaid Diagrams
+      try {
+        mermaid.run({
+          nodes: document.querySelectorAll('.mermaid')
+        });
+      } catch (err) {
+        console.warn('Mermaid rendering error:', err);
+      }
+
+      // Build Table of Contents (On this page)
+      buildTOC();
+
+      // Update Sidebar active state
+      renderSidebar();
+
+      // Update Bottom Next/Previous links
+      updatePagination(doc);
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Build Table of Contents from h2 and h3
+    function buildTOC() {
+      const tocNav = document.getElementById('tocNav');
+      tocNav.innerHTML = '';
+
+      const articleEl = document.getElementById('articleContent');
+      const headings = articleEl.querySelectorAll('h2, h3');
+
+      if (headings.length === 0) {
+        tocNav.innerHTML = '<span style="font-size: 0.8rem; color: var(--text-soft);">Không có mục con</span>';
+        return;
+      }
+
+      headings.forEach((h, index) => {
+        const id = h.id || `section-${index}`;
+        h.id = id;
+
+        const a = document.createElement('a');
+        a.className = `toc-link ${h.tagName.toLowerCase() === 'h3' ? 'toc-h3' : ''}`;
+        a.href = `#${id}`;
+        a.textContent = h.textContent.replace(/^#+\s*/, '');
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          h.scrollIntoView({ behavior: 'smooth' });
+        });
+        tocNav.appendChild(a);
+      });
+    }
+
+    // Bottom Navigation Cards
+    function updatePagination(currentDoc) {
+      const currentIndex = docs.findIndex(d => d.id === currentDoc.id);
+
+      const prevLink = document.getElementById('prevDocLink');
+      const nextLink = document.getElementById('nextDocLink');
+
+      if (currentIndex > 0) {
+        const prevDoc = docs[currentIndex - 1];
+        prevLink.style.visibility = 'visible';
+        prevLink.href = `#${prevDoc.id}`;
+        document.getElementById('prevDocTitle').textContent = prevDoc.title;
+        prevLink.onclick = () => loadDoc(prevDoc.id);
+      } else {
+        prevLink.style.visibility = 'hidden';
+      }
+
+      if (currentIndex < docs.length - 1) {
+        const nextDoc = docs[currentIndex + 1];
+        nextLink.style.visibility = 'visible';
+        nextLink.href = `#${nextDoc.id}`;
+        document.getElementById('nextDocTitle').textContent = nextDoc.title;
+        nextLink.onclick = () => loadDoc(nextDoc.id);
+      } else {
+        nextLink.style.visibility = 'hidden';
+      }
+    }
+
+    // Theme Switcher (Light / Dark)
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    function setTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('novastars_wiki_theme', theme);
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.body.getAttribute('data-theme') || 'light';
+      setTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    const savedTheme = localStorage.getItem('novastars_wiki_theme') || 'light';
+    setTheme(savedTheme);
+
+    // Live Search Filter
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      if (!query) {
+        renderSidebar(docs);
+        return;
+      }
+
+      const filtered = docs.filter(doc => 
+        doc.title.toLowerCase().includes(query) ||
+        doc.group.toLowerCase().includes(query) ||
+        doc.content.toLowerCase().includes(query)
+      );
+
+      renderSidebar(filtered);
+    });
+
+    // Mobile Drawer Toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('wikiSidebar');
+    mobileBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // Initial Routing from URL Hash
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      if (hash && docs.some(d => d.id === hash)) {
+        loadDoc(hash);
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      if (hash && docs.some(d => d.id === hash)) {
+        loadDoc(hash);
+      } else {
+        loadDoc('00_index');
+      }
+    });
+  </script>
+</body>
+</html>

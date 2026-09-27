@@ -24,6 +24,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/wiki",
+      "destination": "/wiki.html"
+    },
+    {
       "source": "/student",
       "destination": "/demo/student_pilot.html"
     },
