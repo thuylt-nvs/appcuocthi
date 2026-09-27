@@ -6,7 +6,8 @@ Nền tảng học tập kỹ năng sống và Đấu Trường Năng Lực Họ
 
 ## 🌐 Tên Miền Chính Thức (Live on Vercel)
 
-👉 **Trang chủ WebApp 3D**: [https://appcuocthi.vercel.app](https://appcuocthi.vercel.app)
+👉 **Trang chủ WebApp 3D**: [https://appcuocthi.vercel.app](https://appcuocthi.vercel.app)  
+👉 **Trang xem Wiki trực quan (Web Viewer)**: [https://appcuocthi.vercel.app/wiki](https://appcuocthi.vercel.app/wiki) (hoặc mở file [`wiki.html`](wiki.html) trực tiếp trên máy)
 
 ---
 
