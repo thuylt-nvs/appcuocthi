@@ -24,10 +24,11 @@ Mục tiêu tối thượng (North Star): **Năng lực hành vi ngoài đời t
                  ▼                                                             ▼
 ┌─────────────────────────────────┐                           ┌─────────────────────────────────┐
 │     WEB CHAMPIONSHIP ALPHA      │                           │      FLUTTER NATIVE MVP         │
-│  (Chạy thực tế trên Vercel)     │                           │     (Mục tiêu mobile dài hạn)   │
-│  • demo/student_pilot.html      │                           │  • lib/features/ (ftue, lesson, │
-│  • demo/admin_dashboard.html    │                           │    map, home)                   │
-│  • js/controllers, js/services  │                           │  • lib/core, lib/data           │
+│  (Live: appcuocthi.vercel.app)  │                           │     (Mục tiêu mobile dài hạn)   │
+│  • index.html (WebApp 3D Live)  │                           │  • lib/features/ (ftue, lesson, │
+│  • demo/student_pilot.html      │                           │    map, home)                   │
+│  • demo/admin_dashboard.html    │                           │  • lib/core, lib/data           │
+│  • js/controllers, js/services  │                           │                                 │
 └─────────────────────────────────┘                           └─────────────────────────────────┘
 ```
 
@@ -100,7 +101,8 @@ npx playwright test --workers=4
 
 ## 🔍 5. File Map Trọng Yếu (Critical Files & Entry Points)
 
-- **Entry point ứng dụng Web Alpha**: [`demo/student_pilot.html`](file:///c:/Users/Nova/.gemini/antigravity/scratch/appcuocthi/demo/student_pilot.html)
+- **Entry point ứng dụng WebApp 3D (Live Vercel)**: [`index.html`](file:///c:/Users/Nova/.gemini/antigravity/scratch/appcuocthi/index.html) — [https://appcuocthi.vercel.app](https://appcuocthi.vercel.app)
+- **Entry point ứng dụng Web Alpha 2D**: [`demo/student_pilot.html`](file:///c:/Users/Nova/.gemini/antigravity/scratch/appcuocthi/demo/student_pilot.html)
 - **Bảng điều khiển Admin Telemetry**: [`demo/admin_dashboard.html`](file:///c:/Users/Nova/.gemini/antigravity/scratch/appcuocthi/demo/admin_dashboard.html)
 - **Ngân hàng dữ liệu câu hỏi compiled**: [`question_bank/questions_data.js`](file:///c:/Users/Nova/.gemini/antigravity/scratch/appcuocthi/question_bank/questions_data.js)
 - **Định nghĩa 7 Năng lực NVS**: [`js/core/nvs_competency.js`](file:///c:/Users/Nova/.gemini/antigravity/scratch/appcuocthi/js/core/nvs_competency.js)
